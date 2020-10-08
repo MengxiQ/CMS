@@ -1,4 +1,4 @@
-"""CMS URL Configuration
+""" URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -14,10 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from django.conf.urls import include
-from rest_framework_jwt.views import obtain_jwt_token
+from ..equipment.views.views import Equipment, NeTypeView, StatusView
+from ..equipment.views.NetconfUserView import NetconfUserView
 urlpatterns = [
-    url(r'^authorizations/$', obtain_jwt_token),
-    url(r'^admin/', include('CMS.apps.cms_admin.urls')),
-    url(r'^asset/', include('CMS.apps.equipment.urls')),
+    url(r'^equipment/(?P<pk>[0-9]*)$', Equipment.as_view()),
+    url(r'equipment/netype/', NeTypeView.as_view()),
+    url(r'^equipment/status/(?P<pk>[0-9]*)$', StatusView.as_view()),
+    url(r'^equipment/netconfuser/(?P<pk>[0-9]*)$', NetconfUserView.as_view())
+
 ]
