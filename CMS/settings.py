@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'CMS.apps.cms_admin.apps.CmsAdminConfig',
     'CMS.apps.equipment.apps.EquipmentConfig',
+    'CMS.apps.detail.apps.DetailConfig',
+    'CMS.apps.configManage.apps.ConfigmanageConfig',
+    'CMS.apps.typesManage.apps.TypesmanageConfig',
 
 ]
 
@@ -88,7 +91,7 @@ DATABASES = {
         'PORT': 3306,  # 数据库端口
         'USER': 'cms',  # 数据库用户名
         'PASSWORD': '123456',  # 数据库用户密码
-        'NAME': 'cms'  # 数据库名字
+        'NAME': 'cms3'  # 数据库名字
     }
 }
 

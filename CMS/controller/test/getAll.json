@@ -1,0 +1,762 @@
+{
+  "interface": [
+    {
+      "ifName": "NULL0",
+      "ifIndex": "2",
+      "ifPhyType": "NULL",
+      "ifPosition": null,
+      "ifParentIfName": null,
+      "ifNumber": "0",
+      "ifDescr": null,
+      "ifTrunkIfName": null,
+      "isL2SwitchPort": "false",
+      "ifAdminStatus": "up",
+      "ifLinkProtocol": "invalid",
+      "ifRouterType": "Broadcast",
+      "ifDf": "false",
+      "ifTrapEnable": "true",
+      "ifMtu": "1500",
+      "ifMac": "0000-0000-0000",
+      "vrfName": {
+        "@id": "0",
+        "#text": "_public_"
+      },
+      "ifStatItvl": null,
+      "vsName": "Admin-VS",
+      "ifServiceType": "None",
+      "ifClass": "mainInterface",
+      "l2SubIfFlag": "false",
+      "protocolUpDelayTime": null,
+      "ifNetworkLayerStatus": "ipv4andipv6up",
+      "ifCfgMac": null,
+      "ifControlFlap": {
+        "ifSuppress": "2000",
+        "ifReuse": "750",
+        "ifDecayOk": "54",
+        "ifDecayNg": "54",
+        "ifCeiling": "6000",
+        "ifCtrlFlapEnbl": "false"
+      },
+      "ifTrapThreshold": {
+        "inputRisingRate": null,
+        "inputResumeRate": null,
+        "outputRisingRate": null,
+        "outputResumeRate": null
+      },
+      "ifmAm4": {
+        "unNumIfName": null,
+        "addrCfgType": "config"
+      },
+      "ifmAm6": {
+        "enableFlag": "false",
+        "ifMtu6": null,
+        "autoLinkLocal": "false"
+      },
+      "ipv4Config": {
+        "unNumIfName": null,
+        "addrCfgType": "config"
+      },
+      "ipv6Config": {
+        "enableFlag": "false",
+        "ifMtu6": null,
+        "autoLinkLocal": "false"
+      }
+    },
+    {
+      "ifName": "MEth0/0/0",
+      "ifIndex": "4",
+      "ifPhyType": "MEth",
+      "ifPosition": "0/0/0",
+      "ifParentIfName": null,
+      "ifNumber": "0/0/0",
+      "ifDescr": null,
+      "ifTrunkIfName": null,
+      "isL2SwitchPort": "false",
+      "ifAdminStatus": "up",
+      "ifLinkProtocol": "ethernet",
+      "ifRouterType": "Broadcast",
+      "ifDf": "false",
+      "ifTrapEnable": "true",
+      "ifMtu": "1500",
+      "ifMac": "707b-e8f3-4ac3",
+      "vrfName": {
+        "@id": "0",
+        "#text": "_public_"
+      },
+      "ifStatItvl": null,
+      "vsName": "Admin-VS",
+      "ifServiceType": "None",
+      "ifClass": "mainInterface",
+      "l2SubIfFlag": "false",
+      "protocolUpDelayTime": null,
+      "ifNetworkLayerStatus": "ipv4andipv6up",
+      "ifCfgMac": null,
+      "ifControlFlap": {
+        "ifSuppress": "2000",
+        "ifReuse": "750",
+        "ifDecayOk": "54",
+        "ifDecayNg": "54",
+        "ifCeiling": "6000",
+        "ifCtrlFlapEnbl": "false"
+      },
+      "ifTrapThreshold": {
+        "inputRisingRate": null,
+        "inputResumeRate": null,
+        "outputRisingRate": null,
+        "outputResumeRate": null
+      },
+      "ifmAm4": {
+        "unNumIfName": null,
+        "addrCfgType": "config"
+      },
+      "ifmAm6": {
+        "enableFlag": "false",
+        "ifMtu6": null,
+        "autoLinkLocal": "false"
+      },
+      "ipv4Config": {
+        "unNumIfName": null,
+        "addrCfgType": "config"
+      },
+      "ipv6Config": {
+        "enableFlag": "false",
+        "ifMtu6": null,
+        "autoLinkLocal": "false"
+      }
+    },
+    {
+      "ifName": "GE1/0/0",
+      "ifIndex": "5",
+      "ifPhyType": "GEBrief",
+      "ifPosition": "1/0/0",
+      "ifParentIfName": null,
+      "ifNumber": "1/0/0",
+      "ifDescr": null,
+      "ifTrunkIfName": null,
+      "isL2SwitchPort": "false",
+      "ifAdminStatus": "up",
+      "ifLinkProtocol": "ethernet",
+      "ifRouterType": "Broadcast",
+      "ifDf": "false",
+      "ifTrapEnable": "true",
+      "ifMtu": "1500",
+      "ifMac": "3846-6801-0100",
+      "vrfName": {
+        "@id": "0",
+        "#text": "_public_"
+      },
+      "ifStatItvl": null,
+      "vsName": "Admin-VS",
+      "ifServiceType": "None",
+      "ifClass": "mainInterface",
+      "l2SubIfFlag": "false",
+      "protocolUpDelayTime": "0",
+      "ifNetworkLayerStatus": "ipv4andipv6up",
+      "ifCfgMac": null,
+      "ifControlFlap": {
+        "ifSuppress": "2000",
+        "ifReuse": "750",
+        "ifDecayOk": "54",
+        "ifDecayNg": "54",
+        "ifCeiling": "6000",
+        "ifCtrlFlapEnbl": "false"
+      },
+      "ifTrapThreshold": {
+        "inputRisingRate": "100",
+        "inputResumeRate": "100",
+        "outputRisingRate": "100",
+        "outputResumeRate": "100"
+      },
+      "ifmAm4": {
+        "unNumIfName": null,
+        "addrCfgType": "config",
+        "am4CfgAddrs": {
+          "am4CfgAddr": {
+            "ifIpAddr": "192.168.100.200",
+            "subnetMask": "255.255.255.0",
+            "addrType": "main"
+          }
+        }
+      },
+      "ifmAm6": {
+        "enableFlag": "false",
+        "ifMtu6": null,
+        "autoLinkLocal": "false"
+      },
+      "ipv4Config": {
+        "unNumIfName": null,
+        "addrCfgType": "config",
+        "am4CfgAddrs": {
+          "am4CfgAddr": {
+            "ifIpAddr": "192.168.100.200",
+            "subnetMask": "255.255.255.0",
+            "addrType": "main"
+          }
+        }
+      },
+      "ipv6Config": {
+        "enableFlag": "false",
+        "ifMtu6": null,
+        "autoLinkLocal": "false"
+      }
+    },
+    {
+      "ifName": "GE1/0/1",
+      "ifIndex": "6",
+      "ifPhyType": "GEBrief",
+      "ifPosition": "1/0/1",
+      "ifParentIfName": null,
+      "ifNumber": "1/0/1",
+      "ifDescr": null,
+      "ifTrunkIfName": null,
+      "isL2SwitchPort": "true",
+      "ifAdminStatus": "down",
+      "ifLinkProtocol": "ethernet",
+      "ifRouterType": "Broadcast",
+      "ifDf": "false",
+      "ifTrapEnable": "true",
+      "ifMtu": "1500",
+      "ifMac": "707b-e8f3-4ac4",
+      "vrfName": {
+        "@id": "0",
+        "#text": "_public_"
+      },
+      "ifStatItvl": null,
+      "vsName": "Admin-VS",
+      "ifServiceType": "None",
+      "ifClass": "mainInterface",
+      "l2SubIfFlag": "false",
+      "protocolUpDelayTime": null,
+      "ifNetworkLayerStatus": "ipv4andipv6up",
+      "ifCfgMac": null,
+      "ifControlFlap": {
+        "ifSuppress": "2000",
+        "ifReuse": "750",
+        "ifDecayOk": "54",
+        "ifDecayNg": "54",
+        "ifCeiling": "6000",
+        "ifCtrlFlapEnbl": "false"
+      },
+      "ifTrapThreshold": {
+        "inputRisingRate": "100",
+        "inputResumeRate": "100",
+        "outputRisingRate": "100",
+        "outputResumeRate": "100"
+      },
+      "ifmAm4": {
+        "unNumIfName": null,
+        "addrCfgType": "config"
+      },
+      "ifmAm6": {
+        "enableFlag": "false",
+        "ifMtu6": null,
+        "autoLinkLocal": "false"
+      },
+      "ipv4Config": {
+        "unNumIfName": null,
+        "addrCfgType": "config"
+      },
+      "ipv6Config": {
+        "enableFlag": "false",
+        "ifMtu6": null,
+        "autoLinkLocal": "false"
+      }
+    },
+    {
+      "ifName": "GE1/0/2",
+      "ifIndex": "7",
+      "ifPhyType": "GEBrief",
+      "ifPosition": "1/0/2",
+      "ifParentIfName": null,
+      "ifNumber": "1/0/2",
+      "ifDescr": null,
+      "ifTrunkIfName": null,
+      "isL2SwitchPort": "true",
+      "ifAdminStatus": "down",
+      "ifLinkProtocol": "ethernet",
+      "ifRouterType": "Broadcast",
+      "ifDf": "false",
+      "ifTrapEnable": "true",
+      "ifMtu": "1500",
+      "ifMac": "707b-e8f3-4ac4",
+      "vrfName": {
+        "@id": "0",
+        "#text": "_public_"
+      },
+      "ifStatItvl": null,
+      "vsName": "Admin-VS",
+      "ifServiceType": "None",
+      "ifClass": "mainInterface",
+      "l2SubIfFlag": "false",
+      "protocolUpDelayTime": null,
+      "ifNetworkLayerStatus": "ipv4andipv6up",
+      "ifCfgMac": null,
+      "ifControlFlap": {
+        "ifSuppress": "2000",
+        "ifReuse": "750",
+        "ifDecayOk": "54",
+        "ifDecayNg": "54",
+        "ifCeiling": "6000",
+        "ifCtrlFlapEnbl": "false"
+      },
+      "ifTrapThreshold": {
+        "inputRisingRate": "100",
+        "inputResumeRate": "100",
+        "outputRisingRate": "100",
+        "outputResumeRate": "100"
+      },
+      "ifmAm4": {
+        "unNumIfName": null,
+        "addrCfgType": "config"
+      },
+      "ifmAm6": {
+        "enableFlag": "false",
+        "ifMtu6": null,
+        "autoLinkLocal": "false"
+      },
+      "ipv4Config": {
+        "unNumIfName": null,
+        "addrCfgType": "config"
+      },
+      "ipv6Config": {
+        "enableFlag": "false",
+        "ifMtu6": null,
+        "autoLinkLocal": "false"
+      }
+    },
+    {
+      "ifName": "GE1/0/3",
+      "ifIndex": "8",
+      "ifPhyType": "GEBrief",
+      "ifPosition": "1/0/3",
+      "ifParentIfName": null,
+      "ifNumber": "1/0/3",
+      "ifDescr": null,
+      "ifTrunkIfName": null,
+      "isL2SwitchPort": "true",
+      "ifAdminStatus": "down",
+      "ifLinkProtocol": "ethernet",
+      "ifRouterType": "Broadcast",
+      "ifDf": "false",
+      "ifTrapEnable": "true",
+      "ifMtu": "1500",
+      "ifMac": "707b-e8f3-4ac4",
+      "vrfName": {
+        "@id": "0",
+        "#text": "_public_"
+      },
+      "ifStatItvl": null,
+      "vsName": "Admin-VS",
+      "ifServiceType": "None",
+      "ifClass": "mainInterface",
+      "l2SubIfFlag": "false",
+      "protocolUpDelayTime": null,
+      "ifNetworkLayerStatus": "ipv4andipv6up",
+      "ifCfgMac": null,
+      "ifControlFlap": {
+        "ifSuppress": "2000",
+        "ifReuse": "750",
+        "ifDecayOk": "54",
+        "ifDecayNg": "54",
+        "ifCeiling": "6000",
+        "ifCtrlFlapEnbl": "false"
+      },
+      "ifTrapThreshold": {
+        "inputRisingRate": "100",
+        "inputResumeRate": "100",
+        "outputRisingRate": "100",
+        "outputResumeRate": "100"
+      },
+      "ifmAm4": {
+        "unNumIfName": null,
+        "addrCfgType": "config"
+      },
+      "ifmAm6": {
+        "enableFlag": "false",
+        "ifMtu6": null,
+        "autoLinkLocal": "false"
+      },
+      "ipv4Config": {
+        "unNumIfName": null,
+        "addrCfgType": "config"
+      },
+      "ipv6Config": {
+        "enableFlag": "false",
+        "ifMtu6": null,
+        "autoLinkLocal": "false"
+      }
+    },
+    {
+      "ifName": "GE1/0/4",
+      "ifIndex": "9",
+      "ifPhyType": "GEBrief",
+      "ifPosition": "1/0/4",
+      "ifParentIfName": null,
+      "ifNumber": "1/0/4",
+      "ifDescr": null,
+      "ifTrunkIfName": null,
+      "isL2SwitchPort": "true",
+      "ifAdminStatus": "down",
+      "ifLinkProtocol": "ethernet",
+      "ifRouterType": "Broadcast",
+      "ifDf": "false",
+      "ifTrapEnable": "true",
+      "ifMtu": "1500",
+      "ifMac": "707b-e8f3-4ac4",
+      "vrfName": {
+        "@id": "0",
+        "#text": "_public_"
+      },
+      "ifStatItvl": null,
+      "vsName": "Admin-VS",
+      "ifServiceType": "None",
+      "ifClass": "mainInterface",
+      "l2SubIfFlag": "false",
+      "protocolUpDelayTime": null,
+      "ifNetworkLayerStatus": "ipv4andipv6up",
+      "ifCfgMac": null,
+      "ifControlFlap": {
+        "ifSuppress": "2000",
+        "ifReuse": "750",
+        "ifDecayOk": "54",
+        "ifDecayNg": "54",
+        "ifCeiling": "6000",
+        "ifCtrlFlapEnbl": "false"
+      },
+      "ifTrapThreshold": {
+        "inputRisingRate": "100",
+        "inputResumeRate": "100",
+        "outputRisingRate": "100",
+        "outputResumeRate": "100"
+      },
+      "ifmAm4": {
+        "unNumIfName": null,
+        "addrCfgType": "config"
+      },
+      "ifmAm6": {
+        "enableFlag": "false",
+        "ifMtu6": null,
+        "autoLinkLocal": "false"
+      },
+      "ipv4Config": {
+        "unNumIfName": null,
+        "addrCfgType": "config"
+      },
+      "ipv6Config": {
+        "enableFlag": "false",
+        "ifMtu6": null,
+        "autoLinkLocal": "false"
+      }
+    },
+    {
+      "ifName": "GE1/0/5",
+      "ifIndex": "10",
+      "ifPhyType": "GEBrief",
+      "ifPosition": "1/0/5",
+      "ifParentIfName": null,
+      "ifNumber": "1/0/5",
+      "ifDescr": null,
+      "ifTrunkIfName": null,
+      "isL2SwitchPort": "true",
+      "ifAdminStatus": "down",
+      "ifLinkProtocol": "ethernet",
+      "ifRouterType": "Broadcast",
+      "ifDf": "false",
+      "ifTrapEnable": "true",
+      "ifMtu": "1500",
+      "ifMac": "707b-e8f3-4ac4",
+      "vrfName": {
+        "@id": "0",
+        "#text": "_public_"
+      },
+      "ifStatItvl": null,
+      "vsName": "Admin-VS",
+      "ifServiceType": "None",
+      "ifClass": "mainInterface",
+      "l2SubIfFlag": "false",
+      "protocolUpDelayTime": null,
+      "ifNetworkLayerStatus": "ipv4andipv6up",
+      "ifCfgMac": null,
+      "ifControlFlap": {
+        "ifSuppress": "2000",
+        "ifReuse": "750",
+        "ifDecayOk": "54",
+        "ifDecayNg": "54",
+        "ifCeiling": "6000",
+        "ifCtrlFlapEnbl": "false"
+      },
+      "ifTrapThreshold": {
+        "inputRisingRate": "100",
+        "inputResumeRate": "100",
+        "outputRisingRate": "100",
+        "outputResumeRate": "100"
+      },
+      "ifmAm4": {
+        "unNumIfName": null,
+        "addrCfgType": "config"
+      },
+      "ifmAm6": {
+        "enableFlag": "false",
+        "ifMtu6": null,
+        "autoLinkLocal": "false"
+      },
+      "ipv4Config": {
+        "unNumIfName": null,
+        "addrCfgType": "config"
+      },
+      "ipv6Config": {
+        "enableFlag": "false",
+        "ifMtu6": null,
+        "autoLinkLocal": "false"
+      }
+    },
+    {
+      "ifName": "GE1/0/6",
+      "ifIndex": "11",
+      "ifPhyType": "GEBrief",
+      "ifPosition": "1/0/6",
+      "ifParentIfName": null,
+      "ifNumber": "1/0/6",
+      "ifDescr": null,
+      "ifTrunkIfName": null,
+      "isL2SwitchPort": "true",
+      "ifAdminStatus": "down",
+      "ifLinkProtocol": "ethernet",
+      "ifRouterType": "Broadcast",
+      "ifDf": "false",
+      "ifTrapEnable": "true",
+      "ifMtu": "1500",
+      "ifMac": "707b-e8f3-4ac4",
+      "vrfName": {
+        "@id": "0",
+        "#text": "_public_"
+      },
+      "ifStatItvl": null,
+      "vsName": "Admin-VS",
+      "ifServiceType": "None",
+      "ifClass": "mainInterface",
+      "l2SubIfFlag": "false",
+      "protocolUpDelayTime": null,
+      "ifNetworkLayerStatus": "ipv4andipv6up",
+      "ifCfgMac": null,
+      "ifControlFlap": {
+        "ifSuppress": "2000",
+        "ifReuse": "750",
+        "ifDecayOk": "54",
+        "ifDecayNg": "54",
+        "ifCeiling": "6000",
+        "ifCtrlFlapEnbl": "false"
+      },
+      "ifTrapThreshold": {
+        "inputRisingRate": "100",
+        "inputResumeRate": "100",
+        "outputRisingRate": "100",
+        "outputResumeRate": "100"
+      },
+      "ifmAm4": {
+        "unNumIfName": null,
+        "addrCfgType": "config"
+      },
+      "ifmAm6": {
+        "enableFlag": "false",
+        "ifMtu6": null,
+        "autoLinkLocal": "false"
+      },
+      "ipv4Config": {
+        "unNumIfName": null,
+        "addrCfgType": "config"
+      },
+      "ipv6Config": {
+        "enableFlag": "false",
+        "ifMtu6": null,
+        "autoLinkLocal": "false"
+      }
+    },
+    {
+      "ifName": "GE1/0/7",
+      "ifIndex": "12",
+      "ifPhyType": "GEBrief",
+      "ifPosition": "1/0/7",
+      "ifParentIfName": null,
+      "ifNumber": "1/0/7",
+      "ifDescr": null,
+      "ifTrunkIfName": null,
+      "isL2SwitchPort": "true",
+      "ifAdminStatus": "down",
+      "ifLinkProtocol": "ethernet",
+      "ifRouterType": "Broadcast",
+      "ifDf": "false",
+      "ifTrapEnable": "true",
+      "ifMtu": "1500",
+      "ifMac": "707b-e8f3-4ac4",
+      "vrfName": {
+        "@id": "0",
+        "#text": "_public_"
+      },
+      "ifStatItvl": null,
+      "vsName": "Admin-VS",
+      "ifServiceType": "None",
+      "ifClass": "mainInterface",
+      "l2SubIfFlag": "false",
+      "protocolUpDelayTime": null,
+      "ifNetworkLayerStatus": "ipv4andipv6up",
+      "ifCfgMac": null,
+      "ifControlFlap": {
+        "ifSuppress": "2000",
+        "ifReuse": "750",
+        "ifDecayOk": "54",
+        "ifDecayNg": "54",
+        "ifCeiling": "6000",
+        "ifCtrlFlapEnbl": "false"
+      },
+      "ifTrapThreshold": {
+        "inputRisingRate": "100",
+        "inputResumeRate": "100",
+        "outputRisingRate": "100",
+        "outputResumeRate": "100"
+      },
+      "ifmAm4": {
+        "unNumIfName": null,
+        "addrCfgType": "config"
+      },
+      "ifmAm6": {
+        "enableFlag": "false",
+        "ifMtu6": null,
+        "autoLinkLocal": "false"
+      },
+      "ipv4Config": {
+        "unNumIfName": null,
+        "addrCfgType": "config"
+      },
+      "ipv6Config": {
+        "enableFlag": "false",
+        "ifMtu6": null,
+        "autoLinkLocal": "false"
+      }
+    },
+    {
+      "ifName": "GE1/0/8",
+      "ifIndex": "13",
+      "ifPhyType": "GEBrief",
+      "ifPosition": "1/0/8",
+      "ifParentIfName": null,
+      "ifNumber": "1/0/8",
+      "ifDescr": null,
+      "ifTrunkIfName": null,
+      "isL2SwitchPort": "true",
+      "ifAdminStatus": "down",
+      "ifLinkProtocol": "ethernet",
+      "ifRouterType": "Broadcast",
+      "ifDf": "false",
+      "ifTrapEnable": "true",
+      "ifMtu": "1500",
+      "ifMac": "707b-e8f3-4ac4",
+      "vrfName": {
+        "@id": "0",
+        "#text": "_public_"
+      },
+      "ifStatItvl": null,
+      "vsName": "Admin-VS",
+      "ifServiceType": "None",
+      "ifClass": "mainInterface",
+      "l2SubIfFlag": "false",
+      "protocolUpDelayTime": null,
+      "ifNetworkLayerStatus": "ipv4andipv6up",
+      "ifCfgMac": null,
+      "ifControlFlap": {
+        "ifSuppress": "2000",
+        "ifReuse": "750",
+        "ifDecayOk": "54",
+        "ifDecayNg": "54",
+        "ifCeiling": "6000",
+        "ifCtrlFlapEnbl": "false"
+      },
+      "ifTrapThreshold": {
+        "inputRisingRate": "100",
+        "inputResumeRate": "100",
+        "outputRisingRate": "100",
+        "outputResumeRate": "100"
+      },
+      "ifmAm4": {
+        "unNumIfName": null,
+        "addrCfgType": "config"
+      },
+      "ifmAm6": {
+        "enableFlag": "false",
+        "ifMtu6": null,
+        "autoLinkLocal": "false"
+      },
+      "ipv4Config": {
+        "unNumIfName": null,
+        "addrCfgType": "config"
+      },
+      "ipv6Config": {
+        "enableFlag": "false",
+        "ifMtu6": null,
+        "autoLinkLocal": "false"
+      }
+    },
+    {
+      "ifName": "GE1/0/9",
+      "ifIndex": "14",
+      "ifPhyType": "GEBrief",
+      "ifPosition": "1/0/9",
+      "ifParentIfName": null,
+      "ifNumber": "1/0/9",
+      "ifDescr": null,
+      "ifTrunkIfName": null,
+      "isL2SwitchPort": "true",
+      "ifAdminStatus": "down",
+      "ifLinkProtocol": "ethernet",
+      "ifRouterType": "Broadcast",
+      "ifDf": "false",
+      "ifTrapEnable": "true",
+      "ifMtu": "1500",
+      "ifMac": "707b-e8f3-4ac4",
+      "vrfName": {
+        "@id": "0",
+        "#text": "_public_"
+      },
+      "ifStatItvl": null,
+      "vsName": "Admin-VS",
+      "ifServiceType": "None",
+      "ifClass": "mainInterface",
+      "l2SubIfFlag": "false",
+      "protocolUpDelayTime": null,
+      "ifNetworkLayerStatus": "ipv4andipv6up",
+      "ifCfgMac": null,
+      "ifControlFlap": {
+        "ifSuppress": "2000",
+        "ifReuse": "750",
+        "ifDecayOk": "54",
+        "ifDecayNg": "54",
+        "ifCeiling": "6000",
+        "ifCtrlFlapEnbl": "false"
+      },
+      "ifTrapThreshold": {
+        "inputRisingRate": "100",
+        "inputResumeRate": "100",
+        "outputRisingRate": "100",
+        "outputResumeRate": "100"
+      },
+      "ifmAm4": {
+        "unNumIfName": null,
+        "addrCfgType": "config"
+      },
+      "ifmAm6": {
+        "enableFlag": "false",
+        "ifMtu6": null,
+        "autoLinkLocal": "false"
+      },
+      "ipv4Config": {
+        "unNumIfName": null,
+        "addrCfgType": "config"
+      },
+      "ipv6Config": {
+        "enableFlag": "false",
+        "ifMtu6": null,
+        "autoLinkLocal": "false"
+      }
+    }
+  ]
+}

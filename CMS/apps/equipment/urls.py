@@ -14,12 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from ..equipment.views.views import Equipment, NeTypeView, StatusView
-from ..equipment.views.NetconfUserView import NetconfUserView
+from ..equipment.views.EquipmentViews import Equipment, NeTypeView, StatusView, EquipmentByIpView
+from ..equipment.views.NetconfUserView import NetconfUserView, BatchUsers
 urlpatterns = [
     url(r'^equipment/(?P<pk>[0-9]*)$', Equipment.as_view()),
     url(r'equipment/netype/', NeTypeView.as_view()),
     url(r'^equipment/status/(?P<pk>[0-9]*)$', StatusView.as_view()),
-    url(r'^equipment/netconfuser/(?P<pk>[0-9]*)$', NetconfUserView.as_view())
+    url(r'^equipment/netconfuser/(?P<pk>[0-9]*)$', NetconfUserView.as_view()),
+    url(r'^equipment/batchUsers/(?P<pk>[0-9]*)$', BatchUsers.as_view()),
+    url(r'^equipment/equipmentByIp/(?P<pk>[0-9]*)$', EquipmentByIpView.as_view())
 
 ]

@@ -20,4 +20,7 @@ urlpatterns = [
     url(r'^authorizations/$', obtain_jwt_token),
     url(r'^admin/', include('CMS.apps.cms_admin.urls')),
     url(r'^asset/', include('CMS.apps.equipment.urls')),
+    url(r'^detail/', include('CMS.apps.detail.urls')),
+    url(r'^configManage/', include('CMS.apps.configManage.urls')),
+    url(r'^typeManage/', include('CMS.apps.typesManage.urls')),
 ]

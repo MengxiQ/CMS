@@ -1,0 +1,853 @@
+{
+  "rpc-reply": {
+    "@message-id": "urn:uuid:10df59f9-cbbc-419d-bfab-28b7f36a2393",
+    "@xmlns": "urn:ietf:params:xml:ns:netconf:base:1.0",
+    "@set-id": "12",
+    "data": {
+      "ethernet": {
+        "@xmlns": "http://www.huawei.com/netconf/vrp",
+        "@format-version": "1.0",
+        "@content-version": "1.0",
+        "ethernetIfs": {
+          "ethernetIf": [
+            {
+              "ifName": "GE1/0/0",
+              "ifIndex": "5",
+              "l2Enable": "disable",
+              "vlanAssigns": null
+            },
+            {
+              "ifName": "GE1/0/1",
+              "ifIndex": "6",
+              "l2Enable": "enable",
+              "vlanAssigns": null,
+              "l2Attribute": {
+                "ifIndex": "6",
+                "linkType": "access",
+                "pvid": "10",
+                "trunkVlans": null,
+                "untagVlans": null,
+                "taggedPacketDiscard": "false",
+                "portBridgEnable": "false",
+                "portActiveVlanInfos": {
+                  "portActiveVlanInfo": {
+                    "unTagVlanList": "10",
+                    "tagVlanList": "-"
+                  }
+                },
+                "muxVlanEna": {
+                  "enableVlans": null
+                }
+              }
+            },
+            {
+              "ifName": "GE1/0/2",
+              "ifIndex": "7",
+              "l2Enable": "enable",
+              "vlanAssigns": null,
+              "l2Attribute": {
+                "ifIndex": "7",
+                "linkType": "access",
+                "pvid": "1",
+                "trunkVlans": null,
+                "untagVlans": null,
+                "taggedPacketDiscard": "false",
+                "portBridgEnable": "false",
+                "portActiveVlanInfos": {
+                  "portActiveVlanInfo": {
+                    "unTagVlanList": "1",
+                    "tagVlanList": "-"
+                  }
+                },
+                "muxVlanEna": {
+                  "enableVlans": null
+                }
+              }
+            },
+            {
+              "ifName": "GE1/0/3",
+              "ifIndex": "8",
+              "l2Enable": "enable",
+              "vlanAssigns": null,
+              "l2Attribute": {
+                "ifIndex": "8",
+                "linkType": "access",
+                "pvid": "1",
+                "trunkVlans": null,
+                "untagVlans": null,
+                "taggedPacketDiscard": "false",
+                "portBridgEnable": "false",
+                "portActiveVlanInfos": {
+                  "portActiveVlanInfo": {
+                    "unTagVlanList": "1",
+                    "tagVlanList": "-"
+                  }
+                },
+                "muxVlanEna": {
+                  "enableVlans": null
+                }
+              }
+            },
+            {
+              "ifName": "GE1/0/4",
+              "ifIndex": "9",
+              "l2Enable": "enable",
+              "vlanAssigns": null,
+              "l2Attribute": {
+                "ifIndex": "9",
+                "linkType": "access",
+                "pvid": "1",
+                "trunkVlans": null,
+                "untagVlans": null,
+                "taggedPacketDiscard": "false",
+                "portBridgEnable": "false",
+                "portActiveVlanInfos": {
+                  "portActiveVlanInfo": {
+                    "unTagVlanList": "1",
+                    "tagVlanList": "-"
+                  }
+                },
+                "muxVlanEna": {
+                  "enableVlans": null
+                }
+              }
+            },
+            {
+              "ifName": "GE1/0/5",
+              "ifIndex": "10",
+              "l2Enable": "enable",
+              "vlanAssigns": null,
+              "l2Attribute": {
+                "ifIndex": "10",
+                "linkType": "access",
+                "pvid": "1",
+                "trunkVlans": null,
+                "untagVlans": null,
+                "taggedPacketDiscard": "false",
+                "portBridgEnable": "false",
+                "portActiveVlanInfos": {
+                  "portActiveVlanInfo": {
+                    "unTagVlanList": "1",
+                    "tagVlanList": "-"
+                  }
+                },
+                "muxVlanEna": {
+                  "enableVlans": null
+                }
+              }
+            },
+            {
+              "ifName": "GE1/0/6",
+              "ifIndex": "11",
+              "l2Enable": "enable",
+              "vlanAssigns": null,
+              "l2Attribute": {
+                "ifIndex": "11",
+                "linkType": "access",
+                "pvid": "1",
+                "trunkVlans": null,
+                "untagVlans": null,
+                "taggedPacketDiscard": "false",
+                "portBridgEnable": "false",
+                "portActiveVlanInfos": {
+                  "portActiveVlanInfo": {
+                    "unTagVlanList": "1",
+                    "tagVlanList": "-"
+                  }
+                },
+                "muxVlanEna": {
+                  "enableVlans": null
+                }
+              }
+            },
+            {
+              "ifName": "GE1/0/7",
+              "ifIndex": "12",
+              "l2Enable": "enable",
+              "vlanAssigns": null,
+              "l2Attribute": {
+                "ifIndex": "12",
+                "linkType": "access",
+                "pvid": "1",
+                "trunkVlans": null,
+                "untagVlans": null,
+                "taggedPacketDiscard": "false",
+                "portBridgEnable": "false",
+                "portActiveVlanInfos": {
+                  "portActiveVlanInfo": {
+                    "unTagVlanList": "1",
+                    "tagVlanList": "-"
+                  }
+                },
+                "muxVlanEna": {
+                  "enableVlans": null
+                }
+              }
+            },
+            {
+              "ifName": "GE1/0/8",
+              "ifIndex": "13",
+              "l2Enable": "enable",
+              "vlanAssigns": null,
+              "l2Attribute": {
+                "ifIndex": "13",
+                "linkType": "access",
+                "pvid": "1",
+                "trunkVlans": null,
+                "untagVlans": null,
+                "taggedPacketDiscard": "false",
+                "portBridgEnable": "false",
+                "portActiveVlanInfos": {
+                  "portActiveVlanInfo": {
+                    "unTagVlanList": "1",
+                    "tagVlanList": "-"
+                  }
+                },
+                "muxVlanEna": {
+                  "enableVlans": null
+                }
+              }
+            },
+            {
+              "ifName": "GE1/0/9",
+              "ifIndex": "14",
+              "l2Enable": "enable",
+              "vlanAssigns": null,
+              "l2Attribute": {
+                "ifIndex": "14",
+                "linkType": "access",
+                "pvid": "1",
+                "trunkVlans": null,
+                "untagVlans": null,
+                "taggedPacketDiscard": "false",
+                "portBridgEnable": "false",
+                "portActiveVlanInfos": {
+                  "portActiveVlanInfo": {
+                    "unTagVlanList": "1",
+                    "tagVlanList": "-"
+                  }
+                },
+                "muxVlanEna": {
+                  "enableVlans": null
+                }
+              }
+            }
+          ]
+        }
+      },
+      "mac": {
+        "@xmlns": "http://www.huawei.com/netconf/vrp",
+        "@format-version": "1.0",
+        "@content-version": "1.0",
+        "globalAttribute": {
+          "macAgeTimeEnable": "enable",
+          "macAgingTime": "300"
+        },
+        "macUsages": {
+          "macUsage": [
+            {
+              "slot": "0",
+              "macCapability": "0"
+            },
+            {
+              "slot": "1",
+              "macCapability": "0"
+            }
+          ]
+        },
+        "macflpDetectGlbAttr": {
+          "macflpDetectEnable": "enable",
+          "macflpDetectLevel": "middle",
+          "macflpAgingTime": "300",
+          "macflpTrapEnable": "disable",
+          "macflpTrapInterval": null
+        },
+        "macflpDetectExcludeVlan": {
+          "vlanLists": null
+        },
+        "ifStormContrls": {
+          "ifStormContrl": [
+            {
+              "ifName": "GE1/0/1",
+              "ifIndex": "6",
+              "action": "normal",
+              "trapEnable": "disable",
+              "logEnable": "disable",
+              "interval": "5"
+            },
+            {
+              "ifName": "GE1/0/2",
+              "ifIndex": "7",
+              "action": "normal",
+              "trapEnable": "disable",
+              "logEnable": "disable",
+              "interval": "5"
+            },
+            {
+              "ifName": "GE1/0/3",
+              "ifIndex": "8",
+              "action": "normal",
+              "trapEnable": "disable",
+              "logEnable": "disable",
+              "interval": "5"
+            },
+            {
+              "ifName": "GE1/0/4",
+              "ifIndex": "9",
+              "action": "normal",
+              "trapEnable": "disable",
+              "logEnable": "disable",
+              "interval": "5"
+            },
+            {
+              "ifName": "GE1/0/5",
+              "ifIndex": "10",
+              "action": "normal",
+              "trapEnable": "disable",
+              "logEnable": "disable",
+              "interval": "5"
+            },
+            {
+              "ifName": "GE1/0/6",
+              "ifIndex": "11",
+              "action": "normal",
+              "trapEnable": "disable",
+              "logEnable": "disable",
+              "interval": "5"
+            },
+            {
+              "ifName": "GE1/0/7",
+              "ifIndex": "12",
+              "action": "normal",
+              "trapEnable": "disable",
+              "logEnable": "disable",
+              "interval": "5"
+            },
+            {
+              "ifName": "GE1/0/8",
+              "ifIndex": "13",
+              "action": "normal",
+              "trapEnable": "disable",
+              "logEnable": "disable",
+              "interval": "5"
+            },
+            {
+              "ifName": "GE1/0/9",
+              "ifIndex": "14",
+              "action": "normal",
+              "trapEnable": "disable",
+              "logEnable": "disable",
+              "interval": "5"
+            }
+          ]
+        },
+        "macAddrSummarys": {
+          "macAddrSummary": [
+            {
+              "slotId": "0",
+              "totalNum": "0",
+              "blackholeNum": "0",
+              "staticNum": "0",
+              "dynLocalNum": "0",
+              "dynRemote": "0",
+              "dynTrunk": "0",
+              "oamNum": "0",
+              "stickyNum": "0",
+              "securityNum": "0",
+              "authenNum": "0",
+              "guestNum": "0",
+              "muxNum": "0",
+              "tunnelNum": "0",
+              "snoopingNum": "0",
+              "evnNum": "0",
+              "ovsdbNum": "0",
+              "capacity": "32768"
+            },
+            {
+              "slotId": "1",
+              "totalNum": "0",
+              "blackholeNum": "0",
+              "staticNum": "0",
+              "dynLocalNum": "0",
+              "dynRemote": "0",
+              "dynTrunk": "0",
+              "oamNum": "0",
+              "stickyNum": "0",
+              "securityNum": "0",
+              "authenNum": "0",
+              "guestNum": "0",
+              "muxNum": "0",
+              "tunnelNum": "0",
+              "snoopingNum": "0",
+              "evnNum": "0",
+              "ovsdbNum": "0",
+              "capacity": "32768"
+            }
+          ]
+        }
+      },
+      "ftpc": {
+        "@xmlns": "http://www.huawei.com/netconf/vrp",
+        "@format-version": "1.0",
+        "@content-version": "1.0",
+        "ftpClient": {
+          "sourceIpv4Address": null,
+          "sourceInterfaceName": null
+        }
+      },
+      "system": {
+        "@xmlns": "http://www.huawei.com/netconf/vrp",
+        "@format-version": "1.0",
+        "@content-version": "1.0",
+        "systemInfo": {
+          "sysName": "CE1",
+          "sysContact": "R&D Beijing, Huawei Technologies co.,Ltd.",
+          "sysLocation": "Beijing China",
+          "sysDesc": "Huawei Versatile Routing Platform Software \r\nVRP (R) software, Version 8.180 (CE12800 V200R005C10SPC607B607) \r\nCopyright (C) 2012-2018 Huawei Technologies Co., Ltd. \r\nHUAWEI CE12800",
+          "sysObjectId": "1.3.6.1.4.1.2011.2.62.2.3",
+          "sysGmtTime": "1602757792",
+          "sysUpTime": "114",
+          "sysService": "78",
+          "platformName": "VRP",
+          "platformVer": "V800R018C10SPC607",
+          "productName": "CE12800",
+          "productVer": "V200R005C10SPC607",
+          "patchVer": null,
+          "esn": "11212323224374196",
+          "mac": "707B-E8F3-4AC4",
+          "lsRole": "admin",
+          "authenFlag": "false"
+        }
+      },
+      "directrt": {
+        "@xmlns": "http://www.huawei.com/netconf/vrp",
+        "@format-version": "1.0",
+        "@content-version": "1.0",
+        "directrtvlink": {
+          "drVlinkSys": {
+            "sysIpv4Enable": "false",
+            "sysIpv6Enable": "false"
+          }
+        }
+      },
+      "ntp": {
+        "@xmlns": "http://www.huawei.com/netconf/vrp",
+        "@format-version": "1.0",
+        "@content-version": "1.0",
+        "ntpStatus": {
+          "clockStatus": "unsynchronized",
+          "clockStratum": "16",
+          "clockSrc": "none",
+          "nominamFreq": "100.0000 Hz",
+          "actualFreq": "100.0000 Hz",
+          "clockPrecision": "2^15",
+          "offset": "0.0000 ms",
+          "rootDelay": "0.00 ms",
+          "rootDispersion": "0.00 ms",
+          "peerDispersion": "0.00 ms",
+          "refTime": "00:00:00.000 UTC Jan 1 1900(00000000.00000000)",
+          "vpnName": null,
+          "syncState": null
+        },
+        "ntpBdStatuss": {
+          "ntpBdStatus": [
+            {
+              "selfNdName": "17",
+              "synNdName": "unknown",
+              "offset": "0.0000 ms",
+              "refTime": "00:00:00.000 UTC Jan 1 1900(00000000.00000000)",
+              "curTime": "10:29:52.500 UTC Oct 16 2020(E333F4A0.80000000)",
+              "clockStatus": "Unsynchronized",
+              "isNTPSerConf": "No",
+              "clockPrecision": "2^15",
+              "poll": "64"
+            },
+            {
+              "selfNdName": "1",
+              "synNdName": "17",
+              "offset": "0.0 ms",
+              "refTime": "10:29:52.500 UTC Oct 16 2020(E333F4A0.80000000)",
+              "curTime": "10:29:52.500 UTC Oct 16 2020(E333F4A0.80000000)",
+              "clockStatus": "Synchronized",
+              "isNTPSerConf": "No",
+              "clockPrecision": "2^18",
+              "poll": "64"
+            }
+          ]
+        },
+        "ntpSystemCfg": {
+          "maxSessCount": "100",
+          "isAuthEnable": "false",
+          "isKodEnable": "false",
+          "syncInterval": null,
+          "minDiscardIntvl": "1",
+          "avgDiscardIntvl": "5",
+          "localPort": "123",
+          "maxDistance": "1"
+        }
+      },
+      "ops": {
+        "@xmlns": "http://www.huawei.com/netconf/vrp",
+        "@format-version": "1.0",
+        "@content-version": "1.0",
+        "opsProcessHistoryStates": {
+          "opsProcessHistoryState": [
+            {
+              "command": "_ops_frame_conditon.py _ospf_mtp.py",
+              "processId": "7",
+              "ownerType": "assistant",
+              "ownerName": "_ospf_mtp.py",
+              "isBackground": "true",
+              "result": "normal",
+              "triggerTime": "2020-10-16T10:28:30",
+              "startTime": "2020-10-16T10:28:31",
+              "endTime": "2020-10-16T10:28:32",
+              "state": null
+            },
+            {
+              "command": "_ops_frame_conditon.py _nvo3_mtp.py",
+              "processId": "6",
+              "ownerType": "assistant",
+              "ownerName": "_nvo3_mtp.py",
+              "isBackground": "true",
+              "result": "normal",
+              "triggerTime": "2020-10-16T10:28:30",
+              "startTime": "2020-10-16T10:28:31",
+              "endTime": "2020-10-16T10:28:32",
+              "state": null
+            },
+            {
+              "command": "_ops_frame_conditon.py _isis_mtp.py",
+              "processId": "3",
+              "ownerType": "assistant",
+              "ownerName": "_isis_mtp.py",
+              "isBackground": "true",
+              "result": "normal",
+              "triggerTime": "2020-10-16T10:28:30",
+              "startTime": "2020-10-16T10:28:31",
+              "endTime": "2020-10-16T10:28:32",
+              "state": null
+            },
+            {
+              "command": "_ops_frame_conditon.py _trill_mtp.py",
+              "processId": "9",
+              "ownerType": "assistant",
+              "ownerName": "_trill_mtp.py",
+              "isBackground": "true",
+              "result": "normal",
+              "triggerTime": "2020-10-16T10:28:30",
+              "startTime": "2020-10-16T10:28:31",
+              "endTime": "2020-10-16T10:28:32",
+              "state": null
+            },
+            {
+              "command": "_ops_frame_conditon.py _ldp_mtp.py",
+              "processId": "5",
+              "ownerType": "assistant",
+              "ownerName": "_ldp_mtp.py",
+              "isBackground": "true",
+              "result": "normal",
+              "triggerTime": "2020-10-16T10:28:30",
+              "startTime": "2020-10-16T10:28:31",
+              "endTime": "2020-10-16T10:28:32",
+              "state": null
+            },
+            {
+              "command": "_ops_frame_conditon.py _lacp_mtp.py",
+              "processId": "4",
+              "ownerType": "assistant",
+              "ownerName": "_lacp_mtp.py",
+              "isBackground": "true",
+              "result": "normal",
+              "triggerTime": "2020-10-16T10:28:30",
+              "startTime": "2020-10-16T10:28:31",
+              "endTime": "2020-10-16T10:28:32",
+              "state": null
+            },
+            {
+              "command": "_ops_frame_conditon.py _ospfv3_mtp.py",
+              "processId": "8",
+              "ownerType": "assistant",
+              "ownerName": "_ospfv3_mtp.py",
+              "isBackground": "true",
+              "result": "normal",
+              "triggerTime": "2020-10-16T10:28:30",
+              "startTime": "2020-10-16T10:28:31",
+              "endTime": "2020-10-16T10:28:32",
+              "state": null
+            },
+            {
+              "command": "_ops_frame_conditon.py _bgp_mtp.py",
+              "processId": "2",
+              "ownerType": "assistant",
+              "ownerName": "_bgp_mtp.py",
+              "isBackground": "true",
+              "result": "normal",
+              "triggerTime": "2020-10-16T10:28:30",
+              "startTime": "2020-10-16T10:28:31",
+              "endTime": "2020-10-16T10:28:32",
+              "state": null
+            },
+            {
+              "command": "_ops_frame_conditon.py _bfd_mtp.py",
+              "processId": "1",
+              "ownerType": "assistant",
+              "ownerName": "_bfd_mtp.py",
+              "isBackground": "true",
+              "result": "normal",
+              "triggerTime": "2020-10-16T10:28:30",
+              "startTime": "2020-10-16T10:28:30",
+              "endTime": "2020-10-16T10:28:32",
+              "state": null
+            }
+          ]
+        },
+        "assistant": {
+          "totalAsstSwitch": {
+            "suspend": "false"
+          },
+          "opsAsstCurrentStates": {
+            "opsAsstCurrentState": [
+              {
+                "name": "_bfd_mtp.py",
+                "type": "script",
+                "state": "ready",
+                "condition": "event",
+                "isDefault": "true"
+              },
+              {
+                "name": "_bgp_mtp.py",
+                "type": "script",
+                "state": "ready",
+                "condition": "alarm",
+                "isDefault": "true"
+              },
+              {
+                "name": "_isis_mtp.py",
+                "type": "script",
+                "state": "ready",
+                "condition": "multiple",
+                "isDefault": "true"
+              },
+              {
+                "name": "_lacp_mtp.py",
+                "type": "script",
+                "state": "ready",
+                "condition": "event",
+                "isDefault": "true"
+              },
+              {
+                "name": "_ldp_mtp.py",
+                "type": "script",
+                "state": "ready",
+                "condition": "event",
+                "isDefault": "true"
+              },
+              {
+                "name": "_nvo3_mtp.py",
+                "type": "script",
+                "state": "ready",
+                "condition": "multiple",
+                "isDefault": "true"
+              },
+              {
+                "name": "_ospf_mtp.py",
+                "type": "script",
+                "state": "ready",
+                "condition": "event",
+                "isDefault": "true"
+              },
+              {
+                "name": "_ospfv3_mtp.py",
+                "type": "script",
+                "state": "ready",
+                "condition": "event",
+                "isDefault": "true"
+              },
+              {
+                "name": "_trill_mtp.py",
+                "type": "script",
+                "state": "ready",
+                "condition": "multiple",
+                "isDefault": "true"
+              }
+            ]
+          },
+          "opsAsstHistoryStates": {
+            "opsAsstHistoryState": [
+              {
+                "name": "_bfd_mtp.py",
+                "type": "script",
+                "isDefault": "true",
+                "triggerInfos": {
+                  "triggerInfo": {
+                    "condition": "subscribe",
+                    "eventName": "--",
+                    "triggerTime": "2020-10-16 10:28:30",
+                    "startTime": "2020-10-16 10:28:30",
+                    "endTime": "2020-10-16 10:28:32",
+                    "result": "normal"
+                  }
+                }
+              },
+              {
+                "name": "_bgp_mtp.py",
+                "type": "script",
+                "isDefault": "true",
+                "triggerInfos": {
+                  "triggerInfo": {
+                    "condition": "subscribe",
+                    "eventName": "--",
+                    "triggerTime": "2020-10-16 10:28:30",
+                    "startTime": "2020-10-16 10:28:30",
+                    "endTime": "2020-10-16 10:28:32",
+                    "result": "normal"
+                  }
+                }
+              },
+              {
+                "name": "_isis_mtp.py",
+                "type": "script",
+                "isDefault": "true",
+                "triggerInfos": {
+                  "triggerInfo": {
+                    "condition": "subscribe",
+                    "eventName": "--",
+                    "triggerTime": "2020-10-16 10:28:30",
+                    "startTime": "2020-10-16 10:28:30",
+                    "endTime": "2020-10-16 10:28:32",
+                    "result": "normal"
+                  }
+                }
+              },
+              {
+                "name": "_lacp_mtp.py",
+                "type": "script",
+                "isDefault": "true",
+                "triggerInfos": {
+                  "triggerInfo": {
+                    "condition": "subscribe",
+                    "eventName": "--",
+                    "triggerTime": "2020-10-16 10:28:30",
+                    "startTime": "2020-10-16 10:28:30",
+                    "endTime": "2020-10-16 10:28:32",
+                    "result": "normal"
+                  }
+                }
+              },
+              {
+                "name": "_ldp_mtp.py",
+                "type": "script",
+                "isDefault": "true",
+                "triggerInfos": {
+                  "triggerInfo": {
+                    "condition": "subscribe",
+                    "eventName": "--",
+                    "triggerTime": "2020-10-16 10:28:30",
+                    "startTime": "2020-10-16 10:28:30",
+                    "endTime": "2020-10-16 10:28:32",
+                    "result": "normal"
+                  }
+                }
+              },
+              {
+                "name": "_nvo3_mtp.py",
+                "type": "script",
+                "isDefault": "true",
+                "triggerInfos": {
+                  "triggerInfo": {
+                    "condition": "subscribe",
+                    "eventName": "--",
+                    "triggerTime": "2020-10-16 10:28:30",
+                    "startTime": "2020-10-16 10:28:30",
+                    "endTime": "2020-10-16 10:28:32",
+                    "result": "normal"
+                  }
+                }
+              },
+              {
+                "name": "_ospf_mtp.py",
+                "type": "script",
+                "isDefault": "true",
+                "triggerInfos": {
+                  "triggerInfo": {
+                    "condition": "subscribe",
+                    "eventName": "--",
+                    "triggerTime": "2020-10-16 10:28:30",
+                    "startTime": "2020-10-16 10:28:30",
+                    "endTime": "2020-10-16 10:28:32",
+                    "result": "normal"
+                  }
+                }
+              },
+              {
+                "name": "_ospfv3_mtp.py",
+                "type": "script",
+                "isDefault": "true",
+                "triggerInfos": {
+                  "triggerInfo": {
+                    "condition": "subscribe",
+                    "eventName": "--",
+                    "triggerTime": "2020-10-16 10:28:30",
+                    "startTime": "2020-10-16 10:28:30",
+                    "endTime": "2020-10-16 10:28:32",
+                    "result": "normal"
+                  }
+                }
+              },
+              {
+                "name": "_trill_mtp.py",
+                "type": "script",
+                "isDefault": "true",
+                "triggerInfos": {
+                  "triggerInfo": {
+                    "condition": "subscribe",
+                    "eventName": "--",
+                    "triggerTime": "2020-10-16 10:28:30",
+                    "startTime": "2020-10-16 10:28:30",
+                    "endTime": "2020-10-16 10:28:32",
+                    "result": "normal"
+                  }
+                }
+              }
+            ]
+          },
+          "opsAsstVerboseStates": {
+            "opsAsstVerboseState": {
+              "name": "_bfd_mtp.py",
+              "type": "script",
+              "state": "ready",
+              "runningTimes": "0",
+              "maxQueue": "10",
+              "freeQueue": "10",
+              "abstract": "_bfd_mtp.py : ops_execute()",
+              "correlate": null,
+              "isDefault": "true",
+              "dropOfQueueFull": "0",
+              "dropOfDelay": "0",
+              "dropOfSuppress": "0",
+              "dropOfError": "0",
+              "triggerThreshold": "1",
+              "triggerPeriod": "30",
+              "triggerDelay": "0",
+              "triggerSuppress": "0",
+              "triggerHits": "0",
+              "conditionInfos": {
+                "conditionInfo": {
+                  "tag": null,
+                  "type": "event",
+                  "result": "success",
+                  "occurThreshold": "1",
+                  "period": "30",
+                  "hits": "0"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
