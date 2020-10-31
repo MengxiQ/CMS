@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Templates, Params, TempType, Function
-from CMS.apps.equipment.models import UnitType
+from CMS.apps.equipment.models import UnitType, Vendor
 
 
 class BaseSerializers(serializers.Serializer):
@@ -22,6 +22,7 @@ class TempTypesSeralizers(BaseSerializers):
 
 
 class UnitTypeSerializers(BaseSerializers):
+    vendor = serializers.SlugRelatedField(slug_field='name', read_only=True)
 
     def create(self, validated_data):
         return UnitType.objects.create(**validated_data)

@@ -1,7 +1,14 @@
 from rest_framework import serializers
 from rest_framework.utils import json
 
-from CMS.apps.equipment.models import Networkequipment, Nestatus, NestatusType, NeType, NetconfUsers
+from CMS.apps.equipment.models import Networkequipment, Nestatus, NestatusType, Vendor, NeType, NetconfUsers
+from CMS.apps.configManage.serializers import UnitTypeSerializers
+
+
+class VendorSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Vendor
+        fields = '__all__'
 
 
 class statusTypeSerializers(serializers.ModelSerializer):
@@ -86,12 +93,9 @@ class equipmentSerializers(serializers.Serializer):
 
 
 class NeTypeSerializers(serializers.ModelSerializer):
-
     class Meta:
         model = NeType
         fields = '__all__'
 
     def __str__(self):
         return self
-
-
