@@ -34,8 +34,8 @@ class Templates(models.Model):
     tempType = models.ForeignKey(TempType, blank=True, null=True, on_delete=models.CASCADE)
     # params = models.ForeignKey(Params, blank=True, null=True, on_delete=models.CASCADE)
     function = models.ForeignKey(Function, blank=True, null=True, on_delete=models.CASCADE)
-    support = models.ManyToManyField(UnitType)
-    templateData = models.CharField(max_length=1000, blank=True, null=True)
+    support = models.ManyToManyField(to=UnitType)
+    templateData = models.CharField(max_length=5000, blank=True, null=True)
     updateDate = models.DateTimeField(blank=True, null=True)
 
     class Meta:

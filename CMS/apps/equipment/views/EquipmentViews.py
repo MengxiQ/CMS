@@ -1,12 +1,12 @@
 from django.db.models import Max
 from rest_framework import status
-from rest_framework.generics import GenericAPIView
-from rest_framework.mixins import ListModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin
+from rest_framework.generics import GenericAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
+
 from rest_framework.response import Response
 from django.db import transaction
 from CMS.apps.equipment.serializers import equipmentSerializers, NeTypeSerializers, statusSerializers, \
     NetconfUsersSerializer
-from CMS.apps.equipment.models import Networkequipment, NeType, Nestatus, NestatusType, NetconfUsers
+from CMS.apps.equipment.models import Networkequipment, NeType, Nestatus, NestatusType, NetconfUsers, UnitType
 
 from rest_framework.pagination import PageNumberPagination
 
@@ -16,51 +16,76 @@ class StandardPageNumberPagination(PageNumberPagination):
     max_page_size = 100
 
 
-class Equipment(UpdateModelMixin, ListModelMixin, CreateModelMixin, DestroyModelMixin, GenericAPIView, ):
+class Equipment(RetrieveUpdateDestroyAPIView, ListCreateAPIView):
     serializer_class = equipmentSerializers
     queryset = Networkequipment.objects.all()
     pagination_class = StandardPageNumberPagination
     filter_fields = ('ip', 'name', 'type')
 
-    def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
+    def get(self, request, *args, **kwargs):
+        return self.list(self, request, *args, **kwargs)
 
-        page = self.paginate_queryset(queryset)
-        if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
+    # def list(self, request, *args, **kwargs):
+    #     queryset = self.filter_queryset(self.get_queryset())
+    #
+    #     page = self.paginate_queryset(queryset)
+    #     if page is not None:
+    #         serializer = self.get_serializer(page, many=True)
+    #         return self.get_paginated_response(serializer.data)
+    #
+    #     serializer = self.get_serializer(queryset, many=True)
+    #     return Response(serializer.data)
 
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
-
-    def get(self, request, pk):
-        return self.list(request)
 
     def update(self, request, *args, **kwargs):
         # 更新设备
-        partial = kwargs.pop('partial', False)
-        instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, partial=partial)
-        serializer.is_valid(raise_exception=True)
-        self.perform_update(serializer)
+        print(request)
+        with transaction.atomic():
+            # 创建事务保存点
+            save_point = transaction.savepoint()
+            try:
+                # 查询设备
+                networkequipment = Networkequipment.objects.get(id=kwargs.get('pk'))
+                networkequipment.ip = request.data.get('ip')
+                networkequipment.mac = request.data.get('mac')
+                networkequipment.name =request.data.get('name')
+                networkequipment.remark = request.data.get('remark')
 
-        if getattr(instance, '_prefetched_objects_cache', None):
-            # If 'prefetch_related' has been applied to a queryset, we need to
-            # forcibly invalidate the prefetch cache on the instance.
-            instance._prefetched_objects_cache = {}
 
-        # 更新netconf用户信息
+                # 更新设备型号
+                unitType = UnitType.objects.get(name=request.data.get('unittype'))
+                networkequipment.unittype = unitType
 
-        return Response(serializer.data)
+                # 更新设备类型
+                type = NeType.objects.get(name=request.data.get('type'))
+                networkequipment.type = type
+                networkequipment.save()
 
-    def put(self, request, pk):
-        return self.update(request)
+                # 更新netconf账户
+                netconfUserData = request.data.get('netconfusers_set')[0]
+                netconfUserSerializer = NetconfUsersSerializer(data=netconfUserData)
+                netconfUserSerializer.is_valid(raise_exception=True)
+                netconfUser = netconfUserSerializer.save()
+                netconfUser.equipment_id = networkequipment
+                netconfUser.save()
+                serializer = self.serializer_class(networkequipment)
 
-    def delete(self, request, pk):
-        return self.destroy(request)
+            except Exception as e:
+                transaction.savepoint_rollback(save_point)
+                print(e)
+                return Response({
+                    'code': 500,
+                    'errmsg': '创建设备和用户失败'
+                }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(self, request, *args, **kwargs)
 
     def perform_create(self, serializer):
-        return serializer.save()
+        return  serializer.save()
 
     def create(self, request, *args, **kwargs):
         # 开始事务
@@ -74,9 +99,14 @@ class Equipment(UpdateModelMixin, ListModelMixin, CreateModelMixin, DestroyModel
                 networkequipment = self.perform_create(serializer)
 
                 # 关联设备类型
-                type = NeType.objects.get(id=request.data.get('type'))
-                # networkequipment = Networkequipment.objects.get(neid=serializer.data.get('neid'))
+                type = NeType.objects.get(id=request.data.get('type')) #
                 networkequipment.type = type
+
+                # 关联设备型号
+                unittype = UnitType.objects.get(name=request.data.get('unittype'))
+                networkequipment.unittype = unittype
+
+                # 保存
                 networkequipment.save()
 
                 # 创建netconf账户
@@ -95,23 +125,20 @@ class Equipment(UpdateModelMixin, ListModelMixin, CreateModelMixin, DestroyModel
                 return Response({
                     'code': 500,
                     'errmsg': '创建设备和用户失败'
-                })
+                }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
-    def post(self, request, pk):
-        return self.create(request)
 
 
-class NeTypeView(ListModelMixin, GenericAPIView, ):
+class NeTypeView(RetrieveUpdateDestroyAPIView, ListCreateAPIView):
     serializer_class = NeTypeSerializers
     queryset = NeType.objects.all()
 
-    def get(self, request):
-        return self.list(request)
 
 
-class StatusView(GenericAPIView, CreateModelMixin, UpdateModelMixin):
+
+class StatusView(RetrieveUpdateDestroyAPIView, ListCreateAPIView):
     serializer_class = statusSerializers
     queryset = Nestatus.objects.all()
 
@@ -145,13 +172,15 @@ class StatusView(GenericAPIView, CreateModelMixin, UpdateModelMixin):
         with transaction.atomic():
             save_id = transaction.savepoint()
             ne_id = request.data.get('id')
+            data = request.data.get('status')
             try:
-                serializer = self.get_serializer(data=request.data.get('status'))
-                serializer.is_valid(raise_exception=True)
-                status_ins = self.perform_create(serializer)
-                headers = self.get_success_headers(serializer.data)
-
-                # 关联
+                # 1. 创建状态对象
+                status_ins = Nestatus.objects.create(date=data.get('date'),
+                                                 site=data.get('site'),
+                                                 remark=data.get('remark'),
+                                                 type_id=data.get('type_id')
+                                                  )
+                # 2. 关联
                 equipment = Networkequipment.objects.get(id=ne_id)
                 equipment.status = status_ins
                 equipment.save()
@@ -162,8 +191,8 @@ class StatusView(GenericAPIView, CreateModelMixin, UpdateModelMixin):
                     'code': 500,
                     'errmsg': '创建设备状态失败'
                 })
-
-            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+            serializer = self.serializer_class(status_ins)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def post(self, request, pk):
         return self.create(request)

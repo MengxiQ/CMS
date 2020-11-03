@@ -47,7 +47,7 @@ class FunctionSerializers(BaseSerializers):
 
 
 class ParamsSerializers(BaseSerializers):
-    constraint = serializers.CharField(required=False, read_only=True)
+    constraint = serializers.CharField(allow_null=True, allow_blank=True)
 
     def create(self, validated_data):
         Params.objects.create(**validated_data)

@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 from .views.interfacesViews import GatherInterfaces, InterfacesViews
+from .views.vlansViews import VlansViews
 urlpatterns = [
     url(r'config/gather', GatherInterfaces.as_view()),
     url(r'config/interfaces', InterfacesViews.as_view()),
+    url(r'config/vlans', VlansViews.as_view()),
 ]
