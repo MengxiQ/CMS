@@ -35,7 +35,7 @@ class NetconfUserView(ListCreateAPIView, RetrieveUpdateDestroyAPIView):
 class BatchUsers(GenericAPIView):
 
     def post(self, request, *args, **kwargs):
-        print(request.data)
+        # print(request.data)
         equipmentsIdList = request.data.get('equipmentsIdList')
         choicUser = request.data.get('choicUser')
         with transaction.atomic():

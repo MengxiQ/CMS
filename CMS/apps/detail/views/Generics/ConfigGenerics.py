@@ -6,7 +6,7 @@ from ncclient import manager
 from xml.dom.minidom import parseString
 import xmltodict
 from string import Template
-from CMS.apps.detail.tools import edit_config, getInfo
+from CMS.apps.tools.configTools import edit_config, getInfo
 
 
 class ConfigAPIVies(GenericAPIView):
@@ -63,10 +63,10 @@ class ConfigAPIVies(GenericAPIView):
             with connect as m:
                 reply_obj = m.get_config(source='running', filter=template_get_xml)
                 reply_json_data = xmltodict.parse(str(reply_obj))
-                # print(reply_json_data)
+                print(reply_json_data)
         except Exception as e:
             print(e)
-            Response({'msg': '连接设备或者下发配置出错！', 'erro': e}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'msg': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         return Response({'data': reply_json_data['rpc-reply']['data'], 'params': paramsList},
                         status=status.HTTP_200_OK)

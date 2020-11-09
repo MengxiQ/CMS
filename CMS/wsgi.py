@@ -11,6 +11,12 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
+from CMS.apps.tools.testTools import pingTimer
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'CMS.settings')
 
 application = get_wsgi_application()
+
+
+# 定时任务
+pingTimer(10)

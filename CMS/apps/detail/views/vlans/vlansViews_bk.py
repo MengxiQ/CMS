@@ -6,7 +6,7 @@ from ncclient import manager
 from xml.dom.minidom import  parseString
 import xmltodict
 from string import Template
-from CMS.apps.detail.tools import edit_config, getInfo
+from CMS.apps.tools.configTools import edit_config, getInfo
 
 
 class VlansViews(GenericAPIView):

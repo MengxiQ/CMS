@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.response import Response
 
 from CMS.apps.detail.views.Generics.ConfigGenerics import ConfigAPIVies
-from CMS.apps.detail.tools import getInfo
+from CMS.apps.tools.configTools import getInfo
 from CMS.apps.configManage.serializers import ParamsSerializers
 
 

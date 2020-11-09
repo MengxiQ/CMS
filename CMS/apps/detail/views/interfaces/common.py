@@ -4,7 +4,7 @@ from xml.dom.minidom import parseString
 from rest_framework import status
 from rest_framework.response import Response
 
-from CMS.apps.detail.tools import edit_config, getInfo
+from CMS.apps.tools.configTools import edit_config, getInfo
 from CMS.apps.detail.views.Generics.ConfigGenerics import ConfigAPIVies
 
 
