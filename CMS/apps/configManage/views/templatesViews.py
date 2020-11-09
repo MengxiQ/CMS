@@ -117,7 +117,7 @@ class TemplatesViews(ListCreateAPIView, RetrieveUpdateDestroyAPIView):
             save_point = transaction.savepoint()
             try:
                 # 1. 更新模板对象基表
-                print(request.data)
+                # print(request.data)
                 templateSerializer = self.get_serializer(data=request.data)
                 print(templateSerializer.is_valid())
                 template = Templates.objects.get(id=pk)

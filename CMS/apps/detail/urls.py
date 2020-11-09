@@ -15,9 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import url
 from .views.interfacesViews import GatherInterfaces, InterfacesViews
-from .views.vlansViews import VlansViews
+from CMS.apps.detail.views.vlans.vlansViews import VlansViews
+from CMS.apps.detail.views.ospf.ospfViews import OspfViews, OspfProcessView, OspfAreaView,\
+    OspfAreaNetwork, OspfAdvanceView
+from CMS.apps.detail.views.interfaces.common import CommonInterfacesViews
 urlpatterns = [
     url(r'config/gather', GatherInterfaces.as_view()),
-    url(r'config/interfaces', InterfacesViews.as_view()),
+    # url(r'config/interfaces', InterfacesViews.as_view()),
     url(r'config/vlans', VlansViews.as_view()),
+    url(r'^config/ospf$', OspfViews.as_view()),
+    url(r'^config/ospf/process$', OspfProcessView.as_view()),
+    url(r'^config/ospf/area$', OspfAreaView.as_view()),
+    url(r'^config/ospf/area/network$', OspfAreaNetwork.as_view()),
+    url(r'^config/ospf/advance$', OspfAdvanceView.as_view()),
+    url(r'^config/interfaces/common$', CommonInterfacesViews.as_view())
 ]
