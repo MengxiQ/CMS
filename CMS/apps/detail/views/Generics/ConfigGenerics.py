@@ -63,7 +63,7 @@ class ConfigAPIVies(GenericAPIView):
             with connect as m:
                 reply_obj = m.get_config(source='running', filter=template_get_xml)
                 reply_json_data = xmltodict.parse(str(reply_obj))
-                print(reply_json_data)
+                # print(reply_json_data)
         except Exception as e:
             print(e)
             return Response({'msg': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
