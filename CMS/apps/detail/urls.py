@@ -19,6 +19,10 @@ from CMS.apps.detail.views.vlans.vlansViews import VlansViews
 from CMS.apps.detail.views.ospf.ospfViews import OspfViews, OspfProcessView, OspfAreaView,\
     OspfAreaNetwork, OspfAdvanceView
 from CMS.apps.detail.views.interfaces.common import CommonInterfacesViews
+from CMS.apps.detail.views.interfaces.ethernet import EthernetInterfacesViews
+from CMS.apps.detail.views.static_route.static import StaticRouteViews
+from CMS.apps.detail.views.interfaces.eth_trunk import EthTrunkView, TrunkMemberView
+from CMS.apps.detail.views.bgp.bgp_base import BgpBaseView
 urlpatterns = [
     url(r'config/gather', GatherInterfaces.as_view()),
     # url(r'config/interfaces', InterfacesViews.as_view()),
@@ -28,5 +32,10 @@ urlpatterns = [
     url(r'^config/ospf/area$', OspfAreaView.as_view()),
     url(r'^config/ospf/area/network$', OspfAreaNetwork.as_view()),
     url(r'^config/ospf/advance$', OspfAdvanceView.as_view()),
-    url(r'^config/interfaces/common$', CommonInterfacesViews.as_view())
+    url(r'^config/interfaces/common$', CommonInterfacesViews.as_view()),
+    url(r'^config/interfaces/ethernet$', EthernetInterfacesViews.as_view()),
+    url(r'^config/interfaces/eth_trunk$', EthTrunkView.as_view()),
+    url(r'^config/static_route$', StaticRouteViews.as_view()),
+    url(r'^config/interfaces/eth_trunk/trunk_member$', TrunkMemberView.as_view()),
+    url(r'^config/bgp$', BgpBaseView.as_view())
 ]

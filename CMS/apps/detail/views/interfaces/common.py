@@ -6,7 +6,7 @@ from rest_framework.response import Response
 
 from CMS.apps.tools.configTools import edit_config, getInfo
 from CMS.apps.detail.views.Generics.ConfigGenerics import ConfigAPIVies
-
+import re
 
 class CommonInterfacesViews(ConfigAPIVies):
     functionName = '配置设备接口基本信息'
@@ -50,7 +50,7 @@ class CommonInterfacesViews(ConfigAPIVies):
 
         # 如果接口为二层接口(或者IP地址为空)，则删除三层接口的标签
 
-        print(request_data.get('ifIpAddr'))
+        # print(request_data.get('ifIpAddr'))
         if (request_data.get('isL2SwitchPort') == 'true' or request_data.get('ifIpAddr') == None):
             dom = template_create_dom.getElementsByTagName('ifmAm4')[0]
             dom.parentNode.removeChild(dom)
@@ -62,10 +62,41 @@ class CommonInterfacesViews(ConfigAPIVies):
         try:
             # 4. 下发配置
             reply = edit_config(ip=ip, user=user, data=config_data)
-            # error:如果处理配置错误的问题？ //The name has been used by another VLAN.
         except Exception as e:
             print(e)
-            return Response({'msg': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            # 配置vlanif接口，如果vlan配置下的vlanif接口被删除，引发以下错误
+            # The ifName does not exist.
+            if str(e) == 'The ifName does not exist.':
+                # 1、执行更新vlan的配置，激活vlan配置下的vlanif接口
+                config_temp = Template("""<config>
+                    <vlan xmlns="http://www.huawei.com/netconf/vrp" content-version="1.0" format-version="1.0">
+                        <vlans>
+                            <vlan>
+                                <vlanId>${vlanId}</vlanId>
+                                   <vlanif>
+                                       <ifName>Vlanif${vlanId}</ifName>
+                                       <cfgBand>1000</cfgBand>
+                                       <dampTime>0</dampTime>
+                                    </vlanif>
+                            </vlan>
+                        </vlans>
+                    </vlan>
+                </config>""")
+                # ifName: "Vlanif200"
+                ifName = request_data.get('ifName')
+                # 提取出vlanId
+                vlanId = re.match(r'Vlanif(\d+)', ifName).group(1)
+                config_data = config_temp.substitute(vlanId=vlanId)
+                print(config_data)
+                try:
+                    # 4. 下发配置
+                    reply = edit_config(ip=ip, user=user, data=config_data)
+                    # 重新添加接口
+                    self.create(request, *args, **kwargs)
+                except:
+                    return Response({'msg': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            else:
+                return Response({'msg': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         return Response({'msg': 'ok'}, status=status.HTTP_200_OK)
 

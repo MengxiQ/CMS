@@ -111,7 +111,7 @@ class ConfigAPIVies(GenericAPIView):
         # dom = domTree.getElementsByTagName('addrType')[0]
         # dom.parentNode.removeChild(dom)
         template_create_xml =template_create_dom.toxml()
-        print(template_create_xml)
+        # print(template_create_xml)
         # 3.2 替换参数,生程string类型的xml报文数据
         config_temp = Template(template_create_xml)
         config_data = config_temp.substitute(mapping)
