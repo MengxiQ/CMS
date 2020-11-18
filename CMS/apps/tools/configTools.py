@@ -21,6 +21,10 @@ def getInfo(ip, functionName):
     params: 参数列表（Questet List）
     }
     """
+    """
+    连接设备，必须要等上一个任务完成了，才能执行下一个连接。
+    所以需要以队列的方式处理
+    """
     equipment = Networkequipment.objects.get(ip=ip)
     user = NetconfUsers.objects.filter(equipment=equipment)[0]
     unniType = UnitType.objects.filter(networkequipment__ip=ip)[0]
@@ -36,6 +40,7 @@ def getInfo(ip, functionName):
     params = template.params_set.all()
 
     return user, template_xml_string, params
+
 
 
 def edit_config(ip, user, data):

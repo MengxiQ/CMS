@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'CMS.apps.detail.apps.DetailConfig',
     'CMS.apps.configManage.apps.ConfigmanageConfig',
     'CMS.apps.typesManage.apps.TypesmanageConfig',
+    'CMS.apps.viewsManage.apps.ViewsConfig',
 
 ]
 

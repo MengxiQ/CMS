@@ -106,16 +106,16 @@ class ConfigAPIVies(GenericAPIView):
         # 删除掉空的标签
         template_create_dom = domTree.getElementsByTagName(self.create_TagName)[0].childNodes[1]
         for item in NoneParams:
-            dom = domTree.getElementsByTagName(item)[0]
+            dom = template_create_dom.getElementsByTagName(item)[0]
             dom.parentNode.removeChild(dom)
         # dom = domTree.getElementsByTagName('addrType')[0]
         # dom.parentNode.removeChild(dom)
-        template_create_xml =template_create_dom.toxml()
+        template_create_xml = template_create_dom.toxml()
         # print(template_create_xml)
         # 3.2 替换参数,生程string类型的xml报文数据
         config_temp = Template(template_create_xml)
         config_data = config_temp.substitute(mapping)
-        # print(config_data)
+        print(config_data)
         try:
             # 4. 下发配置
             reply = edit_config(ip=ip, user=user, data=config_data)
@@ -132,24 +132,37 @@ class ConfigAPIVies(GenericAPIView):
         """
         # kwargs.pk = vlanId
         # request.data: {'ip': '192.168.100.200', 'vlan': {'vlanId': '11', 'vlanName': '111', 'vlanDesc': '111'}}
+        global dom
         ip = request.data.get('ip')
         # 1. 根据IP查询相关信息
         user, template_xml_string, params = getInfo(ip, functionName=self.functionName)
         # 2. 获取create-template元素的内容
         domTree = parseString(template_xml_string)
-        """ 
-        添加和删除不同仅在获取不同的模板
-        getElementsByTagName('tempalte-delete')
-        """
-        template_create_xml = domTree.getElementsByTagName(self.delete_TagName)[0].childNodes[1].toxml()
-        # 3. 构造报文
-        config_temp = Template(template_create_xml)
-        # 3.1 构造mapping
-        vlan_data = request.data.get('data')
+
+        template_delete_dom = domTree.getElementsByTagName(self.delete_TagName)[0].childNodes[1]
+
+        request_data = request.data.get('data')
+
+        # 删除掉空的标签
+        NoneParams = []  # 空的标签名
         mapping = {}
         for item in params:
             # name值作为key, 数据作为value
-            mapping[item.name] = vlan_data.get(item.name)
+            # print(request_data.get(item.name))
+            if request_data.get(item.name) is None:
+                NoneParams.append(item.name)
+            mapping[item.name] = request_data.get(item.name)
+
+        for item in NoneParams:
+            doms = template_delete_dom.getElementsByTagName(item)
+            # 防止模板中没有空元素的标签，而返回错误
+            if doms:
+                dom = doms[0]
+                dom.parentNode.removeChild(dom)
+            else:
+                pass
+        config_temp = Template(template_delete_dom.toxml())
+
         # 3.2 替换参数,生程string类型的xml报文数据
         config_data = config_temp.substitute(mapping)
         print(config_data)
@@ -162,3 +175,31 @@ class ConfigAPIVies(GenericAPIView):
             print(e)
             return Response({'msg': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response({'msg': 'ok'}, status=status.HTTP_200_OK)
+
+    def params(self, request, *args, **kwargs):
+        """
+        并返回配置参数列表
+        """
+        ip = request.query_params.get('ip')
+        try:
+            # 1. 根据ip查到设备信息：netconf user信息, 模板信息
+            user, template_xml_string, params = getInfo(ip=ip, functionName=self.functionName)
+
+            # 2. 获取get-template元素的内容
+            try:
+                domTree = parseString(template_xml_string)
+                template_get_xml = domTree.getElementsByTagName(self.get_TagName)[0].childNodes[1].toxml()
+            except Exception as e:
+                print(e)
+                return Response({'msg': 'XML模板错误！'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+            paramsList = []
+            for item in params:
+                paramsSerializers = ParamsSerializers(item)
+                paramsList.append(paramsSerializers.data)
+
+        except Exception as e:
+            print(e)
+            return Response({'msg': '获取模板失败！'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        return Response({'data': '', 'params': paramsList}, status=status.HTTP_200_OK)

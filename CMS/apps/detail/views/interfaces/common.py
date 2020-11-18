@@ -42,21 +42,28 @@ class CommonInterfacesViews(ConfigAPIVies):
                 NoneParams.append(item.name)
             mapping[item.name] = request_data.get(item.name)
 
-        # 删除掉空的标签
         template_create_dom = domTree.getElementsByTagName(self.create_TagName)[0].childNodes[1]
-        # for item in NoneParams:
-        #     dom = domTree.getElementsByTagName(item)[0]
-        #     dom.parentNode.removeChild(dom)
+
+        # 删除掉空的标签
+        NoneParams = []  # 空的标签名
+        mapping = {}
+        for item in params:
+            if request_data.get(item.name) is None:
+                NoneParams.append(item.name)
+            mapping[item.name] = request_data.get(item.name)
+
+        for item in NoneParams:
+            dom = template_create_dom.getElementsByTagName(item)[0]
+            dom.parentNode.removeChild(dom)
 
         # 如果接口为二层接口(或者IP地址为空)，则删除三层接口的标签
-
-        # print(request_data.get('ifIpAddr'))
-        if (request_data.get('isL2SwitchPort') == 'true' or request_data.get('ifIpAddr') == None):
+        print('l2Enable', request_data.get('l2Enable'))
+        if request_data.get('l2Enable') == 'disable' or request_data.get('ifIpAddr') == '' or request_data.get('ifIpAddr') is None:
             dom = template_create_dom.getElementsByTagName('ifmAm4')[0]
             dom.parentNode.removeChild(dom)
-        template_create_xml =template_create_dom.toxml()
+
         # 3.2 替换参数,生程string类型的xml报文数据
-        config_temp = Template(template_create_xml)
+        config_temp = Template(template_create_dom.toxml())
         config_data = config_temp.substitute(mapping)
         print(config_data)
         try:
@@ -95,8 +102,12 @@ class CommonInterfacesViews(ConfigAPIVies):
                     self.create(request, *args, **kwargs)
                 except:
                     return Response({'msg': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-            else:
-                return Response({'msg': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+            # Please delete the commands that are not supported after the switching. //必须删除二层接口相关的配置才能配置成三层接口。
+            if str(e) == 'Please delete the commands that are not supported after the switching.':
+                return Response({'msg': '必须删除二层接口相关的配置才能配置成三层接口！'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+            return Response({'msg': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         return Response({'msg': 'ok'}, status=status.HTTP_200_OK)
 

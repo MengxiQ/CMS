@@ -1,13 +1,13 @@
 """CMS URL Configuration
 
-The `urlpatterns` list routes URLs to views. For more information please see:
+The `urlpatterns` list routes URLs to viewsManage. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
 Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
+Function viewsManage
+    1. Add an import:  from my_app import viewsManage
+    2. Add a URL to urlpatterns:  path('', viewsManage.home, name='home')
+Class-based viewsManage
+    1. Add an import:  from other_app.viewsManage import Home
     2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
 Including another URLconf
     1. Import the include() function: from django.urls import include, path
@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^detail/', include('CMS.apps.detail.urls')),
     url(r'^configManage/', include('CMS.apps.configManage.urls')),
     url(r'^typeManage/', include('CMS.apps.typesManage.urls')),
+    url(r'^views/', include('CMS.apps.viewsManage.urls')),
 ]
