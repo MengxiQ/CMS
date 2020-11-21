@@ -66,7 +66,8 @@ def ping_host(ip_address):
     :return: boolean
     """
     response = ping(ip_address)
-    if response is not None:
+    # print('ping:' + ip_address, response)
+    if response is not None and response != False:
         return True
     else:
         return False
@@ -74,3 +75,16 @@ def ping_host(ip_address):
     # if response is not None:
     #     delay = int(response * 1000)
     #     print(delay, "延迟")
+
+
+def ping_text(ip, times):
+    txt = []
+    for item in range(times):
+        res = ping(ip, timeout=2)
+        if( res == False or res == None):
+            text_out = 'ping \'' + ip + ' ... ' + 'time out.'
+        else:
+            text_out = 'ping \'' + ip + ' ... ' + str(round(res, 3) * 1000) + 'ms'
+        print(text_out)
+        txt.append(text_out)
+    return txt

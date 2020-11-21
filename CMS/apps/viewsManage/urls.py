@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 from CMS.apps.viewsManage.views.topologyViews import TopologyView
+from CMS.apps.viewsManage.views.testViews import PingTestView
 
 urlpatterns = [
     url(r'^topology/(?P<pk>[0-9]*)$', TopologyView.as_view()),
+    url(r'^topology/ping/(?P<pk>[0-9]*)$', PingTestView.as_view()),
 ]

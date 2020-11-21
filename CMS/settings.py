@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'CMS.apps.typesManage.apps.TypesmanageConfig',
     'CMS.apps.viewsManage.apps.ViewsConfig',
 
+
 ]
 
 MIDDLEWARE = [
@@ -59,6 +60,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 中间件
+    'CMS.apps.cms_admin.tools.encry_middleware.EncryMiddleware',
 ]
 
 ROOT_URLCONF = 'CMS.urls'

@@ -51,6 +51,7 @@ def edit_config(ip, user, data):
         :param data: 配置xml数据（string）
         :return: 返回设备返回xml并序列化会json数据（json）
         """
+    # 给设备加锁
     # 5.使用设备用户连接设备
     connect = manager.connect(host=ip, port=user.port, username=user.username,
                               password=user.password, hostkey_verify=False,
