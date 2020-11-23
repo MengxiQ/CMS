@@ -8,8 +8,10 @@ from CMS.apps.tools.configTools import edit_config, getInfo
 from CMS.apps.detail.views.Generics.ConfigGenerics import ConfigAPIVies
 import re
 
+
 class CommonInterfacesViews(ConfigAPIVies):
     functionName = '配置设备接口基本信息'
+
     def create(self, request, *args, **kwargs):
         """
         创建配置
@@ -57,11 +59,16 @@ class CommonInterfacesViews(ConfigAPIVies):
             dom.parentNode.removeChild(dom)
 
         # 如果接口为二层接口(或者IP地址为空)，则删除三层接口的标签
-        print('l2Enable', request_data.get('l2Enable'))
-        if request_data.get('l2Enable') == 'disable' or request_data.get('ifIpAddr') == '' or request_data.get('ifIpAddr') is None:
+        # print('l2Enable', request_data.get('l2Enable'))
+        if request_data.get('l2Enable') == 'enable' or request_data.get('ifIpAddr') == '' or request_data.get('ifIpAddr') is None:
             dom = template_create_dom.getElementsByTagName('ifmAm4')[0]
             dom.parentNode.removeChild(dom)
-
+        # 是否需要删除<ethernet>标签
+        # 如果是vlanif接口、LoopBack、子接口GE1/0/1.2，需要删除<ethernet>标签
+        ifName = request_data.get('ifName')
+        if (re.match(r'Vlanif(\d+)', ifName) is not None) or (re.match(r'LoopBack(\d+)', ifName) is not None or (re.match(r'GE(\d+)/(\d+)/(\d+).(\d+)', ifName) is not None)):
+            dom = template_create_dom.getElementsByTagName('ethernet')[0]
+            dom.parentNode.removeChild(dom)
         # 3.2 替换参数,生程string类型的xml报文数据
         config_temp = Template(template_create_dom.toxml())
         config_data = config_temp.substitute(mapping)
@@ -73,35 +80,42 @@ class CommonInterfacesViews(ConfigAPIVies):
             print(e)
             # 配置vlanif接口，如果vlan配置下的vlanif接口被删除，引发以下错误
             # The ifName does not exist.
+            # 提示接口未创建
             if str(e) == 'The ifName does not exist.':
-                # 1、执行更新vlan的配置，激活vlan配置下的vlanif接口
-                config_temp = Template("""<config>
-                    <vlan xmlns="http://www.huawei.com/netconf/vrp" content-version="1.0" format-version="1.0">
-                        <vlans>
-                            <vlan>
-                                <vlanId>${vlanId}</vlanId>
-                                   <vlanif>
-                                       <ifName>Vlanif${vlanId}</ifName>
-                                       <cfgBand>1000</cfgBand>
-                                       <dampTime>0</dampTime>
-                                    </vlanif>
-                            </vlan>
-                        </vlans>
-                    </vlan>
-                </config>""")
-                # ifName: "Vlanif200"
-                ifName = request_data.get('ifName')
-                # 提取出vlanId
-                vlanId = re.match(r'Vlanif(\d+)', ifName).group(1)
-                config_data = config_temp.substitute(vlanId=vlanId)
-                print(config_data)
-                try:
-                    # 4. 下发配置
-                    reply = edit_config(ip=ip, user=user, data=config_data)
-                    # 重新添加接口
-                    self.create(request, *args, **kwargs)
-                except:
-                    return Response({'msg': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                # 1、可能1：vlanif接口没有启用
+                # 执行更新vlan的配置，激活vlan配置下的vlanif接口
+                if re.match(r'Vlanif(\d+)', ifName) is not None:
+                    config_temp = Template("""<config>
+                        <vlan xmlns="http://www.huawei.com/netconf/vrp" content-version="1.0" format-version="1.0">
+                            <vlans>
+                                <vlan>
+                                    <vlanId>${vlanId}</vlanId>
+                                       <vlanif>
+                                           <ifName>Vlanif${vlanId}</ifName>
+                                           <cfgBand>1000</cfgBand>
+                                           <dampTime>0</dampTime>
+                                        </vlanif>
+                                </vlan>
+                            </vlans>
+                        </vlan>
+                    </config>""")
+                    # ifName: "Vlanif200"
+                    ifName = request_data.get('ifName')
+                    # 提取出vlanId
+                    vlanId_re = re.match(r'Vlanif(\d+)', ifName)
+                    if vlanId_re != None:
+                        vlanId = vlanId_re.group(1)
+                        config_data = config_temp.substitute(vlanId=vlanId)
+                    print(config_data)
+                    try:
+                        # 4. 下发配置
+                        reply = edit_config(ip=ip, user=user, data=config_data)
+                        # 重新添加接口
+                        self.create(request, *args, **kwargs)
+                    except:
+                        return Response({'msg': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+                # 2、可能2：***
 
             # Please delete the commands that are not supported after the switching. //必须删除二层接口相关的配置才能配置成三层接口。
             if str(e) == 'Please delete the commands that are not supported after the switching.':
