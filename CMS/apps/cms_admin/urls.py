@@ -14,7 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from .views import userView
+from CMS.apps.cms_admin.views.views import userView
+from CMS.apps.cms_admin.views.usersViews import usersView
+from CMS.apps.cms_admin.views.statisticalViews import StatisticalViews
 urlpatterns = [
-    url('user', userView.as_view()),
+    url('^user/$', userView.as_view()),
+    url('^users/(?P<pk>[0-9]*)$', usersView.as_view()),
+    url('statistica', StatisticalViews.as_view()),
 ]

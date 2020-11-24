@@ -8,7 +8,7 @@ from CMS.apps.equipment.models import Networkequipment, NestatusType, Nestatus
 
 
 def pingTimer(inc):
-    print(datetime.now().strftime("%Y-%m-%d %H:%M:%S"), '刷新状态')
+    # print(datetime.now().strftime("%Y-%m-%d %H:%M:%S"), '刷新状态')
     # 1 查询所有的设备
     equipments = Networkequipment.objects.all()
     # 2 循环尝试ping设备
@@ -81,10 +81,10 @@ def ping_text(ip, times):
     txt = []
     for item in range(times):
         res = ping(ip, timeout=2)
-        if( res == False or res == None):
+        if res == False or res == None:
             text_out = 'ping \'' + ip + ' ... ' + 'time out.'
         else:
             text_out = 'ping \'' + ip + ' ... ' + str(round(res, 3) * 1000) + 'ms'
-        print(text_out)
+        # print(text_out)
         txt.append(text_out)
     return txt

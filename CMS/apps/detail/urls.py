@@ -14,7 +14,6 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from .views.interfacesViews import GatherInterfaces, InterfacesViews
 from CMS.apps.detail.views.vlans.vlansViews import VlansViews
 from CMS.apps.detail.views.ospf.ospfViews import OspfViews, OspfProcessView, OspfAreaView,\
     OspfAreaNetwork, OspfAdvanceView
@@ -26,7 +25,6 @@ from CMS.apps.detail.views.bgp.bgp_base import BgpBaseView, BgpPeerView, BgpNetw
 from CMS.apps.detail.views.monitoring.monitoring import BoardResStatesView, ArarmView, SystemInfoView
 
 urlpatterns = [
-    url(r'config/gather', GatherInterfaces.as_view()),
     # url(r'config/interfaces', InterfacesViews.as_view()),
     url(r'config/vlans', VlansViews.as_view()),
     url(r'^config/ospf$', OspfViews.as_view()),
