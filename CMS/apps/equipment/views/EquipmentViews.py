@@ -1,16 +1,10 @@
-from django.db.models import Max
 from rest_framework import status
 from rest_framework.generics import GenericAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
-
 from rest_framework.response import Response
 from django.db import transaction
-from CMS.apps.equipment.serializers import equipmentSerializers, NeTypeSerializers, statusSerializers, \
-    NetconfUsersSerializer
-from CMS.apps.equipment.models import Networkequipment, NeType, Nestatus, NestatusType, NetconfUsers, UnitType
-
+from CMS.apps.equipment.serializers import equipmentSerializers, NeTypeSerializers, statusSerializers
+from CMS.apps.equipment.models import Networkequipment, NeType, Nestatus, NestatusType
 from rest_framework.pagination import PageNumberPagination
-
-from CMS.apps.tools.testTools import pingTimer
 
 
 class StandardPageNumberPagination(PageNumberPagination):
@@ -18,116 +12,45 @@ class StandardPageNumberPagination(PageNumberPagination):
     max_page_size = 100
 
 
-class Equipment(RetrieveUpdateDestroyAPIView, ListCreateAPIView):
+class EquipmentView(ListCreateAPIView, RetrieveUpdateDestroyAPIView):
     serializer_class = equipmentSerializers
     queryset = Networkequipment.objects.all()
     pagination_class = StandardPageNumberPagination
     filter_fields = ('ip', 'name', 'type')
 
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
+        ip = request.data.get('ip')
+        try:
+            Networkequipment.objects.get(ip=ip)
+        except Exception as e:
+            if isinstance(e, Networkequipment.DoesNotExist):
+                return self.create(request, *args, **kwargs)
+            else:
+                return Response({'msg': 'error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'msg': 'IP地址不能重复。'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        return self.list(self, request, *args, **kwargs)
-
-
-    def update(self, request, *args, **kwargs):
-        # 更新设备
-        print(request)
-        with transaction.atomic():
-            # 创建事务保存点
-            save_point = transaction.savepoint()
-            try:
-                # 查询设备
-                networkequipment = Networkequipment.objects.get(id=kwargs.get('pk'))
-                networkequipment.ip = request.data.get('ip')
-                networkequipment.mac = request.data.get('mac')
-                networkequipment.name =request.data.get('name')
-                networkequipment.remark = request.data.get('remark')
-
-
-                # 更新设备型号
-                unitType = UnitType.objects.get(name=request.data.get('unittype'))
-                networkequipment.unittype = unitType
-
-                # 更新设备类型
-                type = NeType.objects.get(name=request.data.get('type'))
-                networkequipment.type = type
-                networkequipment.save()
-
-                # 更新netconf账户
-                netconfUserData = request.data.get('netconfusers_set')[0]
-                netconfUserSerializer = NetconfUsersSerializer(data=netconfUserData)
-                netconfUserSerializer.is_valid(raise_exception=True)
-                netconfUser = netconfUserSerializer.save()
-                netconfUser.equipment_id = networkequipment
-                netconfUser.save()
-                serializer = self.serializer_class(networkequipment)
-
-            except Exception as e:
-                transaction.savepoint_rollback(save_point)
-                print(e)
-                return Response({
-                    'code': 500,
-                    'errmsg': '创建设备和用户失败'
-                }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(self, request, *args, **kwargs)
-
-    def perform_create(self, serializer):
-        return  serializer.save()
-
-    def create(self, request, *args, **kwargs):
-        # 开始事务
-        with transaction.atomic():
-            # 创建事务保存点
-            save_point = transaction.savepoint()
-            try:
-                # 创建设备
-                serializer = self.get_serializer(data=request.data)
-                serializer.is_valid(raise_exception=True)
-                networkequipment = self.perform_create(serializer)
-
-                # 关联设备类型
-                type = NeType.objects.get(id=request.data.get('type')) #
-                networkequipment.type = type
-
-                # 关联设备型号
-                unittype = UnitType.objects.get(name=request.data.get('unittype'))
-                networkequipment.unittype = unittype
-
-                # 保存
-                networkequipment.save()
-
-                # 创建netconf账户
-                netconfUserData = request.data.get('netconfusers_set')[0]
-                netconfUserSerializer = NetconfUsersSerializer(data=netconfUserData)
-                netconfUserSerializer.is_valid(raise_exception=True)
-                netconfUser = netconfUserSerializer.save()
-                netconfUser.equipment_id = networkequipment
-                netconfUser.save()
-
-                headers = self.get_success_headers(serializer.data)
-
-            except Exception as e:
-                transaction.savepoint_rollback(save_point)
-                print(e)
-                return Response({
-                    'code': 500,
-                    'errmsg': '创建设备和用户失败'
-                }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-
+    def perform_destroy(self, instance):
+        if instance.user is None:
+            instance.delete()
+        else:
+            # 删除设备的用户
+            with transaction.atomic():
+                # 创建事务保存点
+                save_point = transaction.savepoint()
+                try:
+                    user = instance.user
+                    instance.user = None
+                    user.delete()
+                    instance.delete()
+                except Exception as e:
+                    print(e)
+                    transaction.savepoint_rollback(save_point)
+                    return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class NeTypeView(RetrieveUpdateDestroyAPIView, ListCreateAPIView):
     serializer_class = NeTypeSerializers
     queryset = NeType.objects.all()
-
-
 
 
 class StatusView(RetrieveUpdateDestroyAPIView, ListCreateAPIView):
@@ -154,9 +77,6 @@ class StatusView(RetrieveUpdateDestroyAPIView, ListCreateAPIView):
 
         return Response(serializer.data)
 
-    def put(self, request, pk):
-        return self.update(request)
-
     def perform_create(self, serializer):
         return serializer.save()
 
@@ -168,10 +88,10 @@ class StatusView(RetrieveUpdateDestroyAPIView, ListCreateAPIView):
             try:
                 # 1. 创建状态对象
                 status_ins = Nestatus.objects.create(date=data.get('date'),
-                                                 site=data.get('site'),
-                                                 remark=data.get('remark'),
-                                                 type_id=data.get('type_id')
-                                                  )
+                                                     site=data.get('site'),
+                                                     remark=data.get('remark'),
+                                                     type_id=data.get('type_id')
+                                                     )
                 # 2. 关联
                 equipment = Networkequipment.objects.get(id=ne_id)
                 equipment.status = status_ins
@@ -186,9 +106,6 @@ class StatusView(RetrieveUpdateDestroyAPIView, ListCreateAPIView):
             serializer = self.serializer_class(status_ins)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    def post(self, request, pk):
-        return self.create(request)
-
 
 class EquipmentByIpView(GenericAPIView):
 
@@ -197,7 +114,7 @@ class EquipmentByIpView(GenericAPIView):
         beginIP = request.query_params.get('beginIP')
         endIP = request.query_params.get('endIP')
         vendor = request.query_params.get('vendor')
-        print(beginIP,endIP)
+        print(beginIP, endIP)
         # < QueryDict: {'beginIP': ['1'], 'endIP': ['1'], 'vendor': ['huawei']} >
         # 给个思路：
         # 在validator里面先判断是否合法ip，用正则([1 - 9] | [1 - 9]\\d | 1\\d

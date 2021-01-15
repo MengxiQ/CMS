@@ -19,4 +19,4 @@ application = get_wsgi_application()
 
 
 # 定时任务
-pingTimer(5)
+pingTimer(1)

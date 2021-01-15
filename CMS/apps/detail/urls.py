@@ -14,35 +14,35 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from CMS.apps.detail.views.vlans.vlansViews import VlansViews
-from CMS.apps.detail.views.ospf.ospfViews import OspfViews, OspfProcessView, OspfAreaView,\
-    OspfAreaNetwork, OspfAdvanceView
-from CMS.apps.detail.views.interfaces.common import CommonInterfacesViews
-from CMS.apps.detail.views.interfaces.ethernet import EthernetInterfacesViews
-from CMS.apps.detail.views.static_route.static import StaticRouteViews
-from CMS.apps.detail.views.interfaces.eth_trunk import EthTrunkView, TrunkMemberView
-from CMS.apps.detail.views.bgp.bgp_base import BgpBaseView, BgpPeerView, BgpNetworkView, BgpImporProtocol, BgpImporInstance
-from CMS.apps.detail.views.monitoring.monitoring import BoardResStatesView, ArarmView, SystemInfoView
+from django.urls import include
 
+from CMS.apps.detail.views.interfaces.InterfaceMonitoringViews.InterfaceMonitoringViews import InterfaceMonitoringView
+from CMS.apps.detail.views.vlans.vlansViews import VlansViews, VlanIfView
+from CMS.apps.detail.views.monitoring.monitoring import BoardResStatesView, ArarmView, SystemInfoView
+from CMS.apps.detail.views.monitoring.sysLogViews import SysLogView
+from CMS.apps.detail.views.manage.commit import CommitView
+from CMS.apps.detail.views.route.table.routeTableView import RouteTableView
+from CMS.apps.detail.views.testViews.PingTestView import PingTestView
+from CMS.apps.detail.views.common.GetNextView import GetNextView
+from CMS.apps.detail.views.common.MaintainView import MaintainView
+from CMS.apps.detail.views.common.ConnectView import ConnectView
 urlpatterns = [
-    # url(r'config/interfaces', InterfacesViews.as_view()),
+    url(r'config/connect', ConnectView.as_view()),
     url(r'config/vlans', VlansViews.as_view()),
-    url(r'^config/ospf$', OspfViews.as_view()),
-    url(r'^config/ospf/process$', OspfProcessView.as_view()),
-    url(r'^config/ospf/area$', OspfAreaView.as_view()),
-    url(r'^config/ospf/area/network$', OspfAreaNetwork.as_view()),
-    url(r'^config/ospf/advance$', OspfAdvanceView.as_view()),
-    url(r'^config/interfaces/common$', CommonInterfacesViews.as_view()),
-    url(r'^config/interfaces/ethernet$', EthernetInterfacesViews.as_view()),
-    url(r'^config/interfaces/eth_trunk$', EthTrunkView.as_view()),
-    url(r'^config/static_route$', StaticRouteViews.as_view()),
-    url(r'^config/interfaces/eth_trunk/trunk_member$', TrunkMemberView.as_view()),
-    url(r'^config/bgp$', BgpBaseView.as_view()),
-    url(r'^config/bgp/peer$', BgpPeerView.as_view()),
-    url(r'^config/bgp/network$', BgpNetworkView.as_view()),
-    url(r'^config/bgp/import/protocol', BgpImporProtocol.as_view()),
-    url(r'^config/bgp/import/instance', BgpImporInstance.as_view()),
+    url(r'config/vlanif', VlanIfView.as_view()),
+    url(r'^config/interfaces/', include('CMS.apps.detail.views.interfaces.urls')),
+    url(r'^monitoring$', InterfaceMonitoringView.as_view()),
     url(r'^config/monitoring/boardResStates', BoardResStatesView.as_view()),
     url(r'^config/monitoring/alarm', ArarmView.as_view()),
-    url(r'^config/monitoring/systemInfo', SystemInfoView.as_view())
+    url(r'^config/monitoring/systemInfo', SystemInfoView.as_view()),
+    url(r'^config/monitoring/syslog', SysLogView.as_view()),
+    # 配置管理
+    url(r'^config/commit$', CommitView.as_view()),
+    # 路由配置
+    url(r'^config/route/', include('CMS.apps.detail.views.route.urls')),
+    # 测试
+    url(r'^config/test/ping$', PingTestView.as_view()),
+    # 通用方法
+    url(r'^config/get/next$', GetNextView.as_view()),  # 获取get-next
+    url(r'^config/saveconfig$', MaintainView.as_view()),  # 获取保存配置
 ]

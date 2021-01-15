@@ -24,7 +24,7 @@ SECRET_KEY = 'c82j_3b_i9t1u&kl+-fp$%g+46nmn$!1w@n-rb(+b=-kc^6sg#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '192.168.0.88']
 
 # Application definition
 
@@ -157,8 +157,13 @@ CORS_ORIGIN_WHITELIST = (
     # 允许下面两个域名之间跨域访问',
     'http://127.0.0.1:8181',
     'http://127.0.0.1:8282',
+    'http://127.0.0.1',
+    'http://192.168.0.88:8181',
+    'http://192.168.0.88:8282',
+    'http://192.168.0.88',
 
 )
 CORS_ALLOW_CREDENTIALS = True  # 允许携带cookie
 
-
+# ssh 连接
+SSH_SESSION = []

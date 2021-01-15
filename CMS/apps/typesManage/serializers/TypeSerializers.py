@@ -1,6 +1,12 @@
 from rest_framework import serializers
-from .models import Templates, Params, TempType, Function
+from CMS.apps.configManage.models import Templates, Params, TempType, Function
 from CMS.apps.equipment.models import UnitType, Vendor, NeType
+
+
+class BaseSerializers(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    name = serializers.CharField(allow_null=True)
+    remark = serializers.CharField(allow_null=True)
 
 
 class NeTypeSerializers(serializers.ModelSerializer):
@@ -10,12 +16,6 @@ class NeTypeSerializers(serializers.ModelSerializer):
 
     def __str__(self):
         return self
-
-
-class BaseSerializers(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
-    name = serializers.CharField(allow_null=True)
-    remark = serializers.CharField(allow_null=True)
 
 
 class VendorSerializers(serializers.ModelSerializer):

@@ -1,10 +1,10 @@
 from rest_framework import status
-from rest_framework.generics import GenericAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 
 from CMS.apps.configManage.models import Templates, Function, UnitType, TempType, Params
-from ..serializers import TemplatesSerializers, FunctionSerializers, UnitTypeSerializers, ParamsSerializers
+from CMS.apps.typesManage.serializers.TypeSerializers import TemplatesSerializers
 
 from django.db import transaction
 
@@ -36,7 +36,7 @@ class TemplatesViews(ListCreateAPIView, RetrieveUpdateDestroyAPIView):
     filter_fields = ('name', 'tempType')
 
     def post(self, request, *args, **kwargs):
-        print(request.data)
+        # print(request.data)
         return self.create( request, *args, **kwargs)
 
     def create(self, request, *args, **kwargs):
@@ -78,7 +78,7 @@ class TemplatesViews(ListCreateAPIView, RetrieveUpdateDestroyAPIView):
         return Response(status=status.HTTP_201_CREATED)
 
     def delete(self, request, *args, **kwargs):
-        print(kwargs)
+        # print(kwargs)
         return self.destroy(request, *args, **kwargs)
 
     def destroy(self, request, *args, **kwargs):
@@ -119,7 +119,7 @@ class TemplatesViews(ListCreateAPIView, RetrieveUpdateDestroyAPIView):
                 # 1. 更新模板对象基表
                 # print(request.data)
                 templateSerializer = self.get_serializer(data=request.data)
-                print(templateSerializer.is_valid())
+                # print(templateSerializer.is_valid())
                 template = Templates.objects.get(id=pk)
                 if (templateSerializer.is_valid()):
                     validated_data = templateSerializer.validated_data

@@ -9,31 +9,20 @@ from django.db import transaction
 class NetconfUserView(ListCreateAPIView, RetrieveUpdateDestroyAPIView):
     queryset = NetconfUsers.objects.all()
     serializer_class = NetconfUsersSerializer
-    filter_fields = ('username', 'device_params')
+    # filter_fields = ('username', 'device_params')
 
-    def getUserbyIp(self, ip):
-        instance = self.queryset.filter(equipment__ip=ip)
-        serializer = self.serializer_class(instance[0])
-        return Response(serializer.data)
-
-    def get(self, request, *args, **kwargs):
-        ip = request.query_params.get('ip')
-        if ip:
-            return self.getUserbyIp(ip)
-        return self.list(request)
-    #
-    # def post(self, request, pk):
-    #     return self.create(request)
-    #
-    # def put(self, request, pk):
-    #     return self.update(request)
-    #
-    # def delete(self, request, pk):
-    #     return self.delete(request)
+    def put(self, request, *args, **kwargs):
+        ip = request.data.get('networkequipment')
+        try:
+            Networkequipment.objects.get(ip=ip)
+        except Exception as e:
+            print(e)
+            if not (ip == '' or ip is None):
+                return Response({'msg': '该IP地址的设备不存在！'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return self.update(request, *args, **kwargs)
 
 
 class BatchUsers(GenericAPIView):
-
     def post(self, request, *args, **kwargs):
         # print(request.data)
         equipmentsIdList = request.data.get('equipmentsIdList')
@@ -46,22 +35,24 @@ class BatchUsers(GenericAPIView):
                 # 2.遍历查出的设备添加用户
                 for item in equipments:
                     # 判断是否已有用户
-                    netconfusers_set = item.netconfusers_set.all()
-                    if (len(netconfusers_set) == 0):
+                    # netconfusers_set = item.netconfusers_set.all()
+                    # if (len(netconfusers_set) == 0):
+                    if item.user is None:
                         # 没有用户，则创建用户
                         user = NetconfUsers.objects.create(username=choicUser.get('username'),
                                                            password=choicUser.get('password'),
                                                            port=choicUser.get('port'),
                                                            device_params=choicUser.get('device_params'))
                         # 绑定用户
-                        user.equipment = item
-                        user.save()
+                        item.user = user
+                        item.save()
                     else:
                         # 已有用户，则更新用户
-                        item.netconfusers_set.update(username=choicUser.get('username'),
-                                                     password=choicUser.get('password'),
-                                                     port=choicUser.get('port'),
-                                                     device_params=choicUser.get('device_params'))
+                        item.user.username = choicUser.get('username')
+                        item.user.password = choicUser.get('password')
+                        item.user.port = choicUser.get('port')
+                        item.user.device_params = choicUser.get('device_params')
+                        item.save()
 
             except Exception as e:
                 print(e)

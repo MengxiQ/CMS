@@ -9,15 +9,12 @@ class BgpBaseView(ConfigAPIVies):
 class BgpPeerView(ConfigAPIVies):
     functionName = '配置BGP邻居'
 
-    def get(self, request, *args, **kwargs):
-        return self.params(request, *args, **kwargs)
+    # def get(self, request, *args, **kwargs):
+    #     return self.params(request, *args, **kwargs)
 
 
 class BgpNetworkView(ConfigAPIVies):
     functionName = '配置BGP路由发布'
-
-    def get(self, request, *args, **kwargs):
-        return self.params(request, *args, **kwargs)
 
 
 class BgpImporProtocol(ConfigAPIVies):

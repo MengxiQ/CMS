@@ -43,7 +43,13 @@ class usersSerializers(serializers.ModelSerializer):
         # print(validated_data)
         # password = make_password(validated_data.get('password', instance.password))
         instance.username = validated_data.get('username', instance.username)
-        instance.set_password(validated_data.get('password', instance.password))  # 对密码进行加密处理
+        password = validated_data.get('password')
+        if password is None or password == '':
+            # 如果密码为空则不修改密码
+            pass
+        else:
+            instance.set_password(password)  # 对密码进行加密处理
         instance.is_active = validated_data.get('is_active', instance.is_active)
+        instance.email = validated_data.get('email', instance.email)
         instance.save()  # 注意要保存数据到数据库
         return instance
