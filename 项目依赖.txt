@@ -1,0 +1,1 @@
+pip3  install -i http://pypi.douban.com/simple/ django django-cors-headers pymysql djangorestframework django-filter djangorestframework-jwt ncclient  ping3 lxml xmltodict  uswgi 

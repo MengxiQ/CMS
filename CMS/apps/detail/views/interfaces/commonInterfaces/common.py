@@ -4,7 +4,6 @@ from xml.dom.minidom import parseString
 from rest_framework import status
 from rest_framework.response import Response
 
-from CMS.apps.tools.configTools import edit_config, getInfo
 from CMS.apps.detail.views.Generics.ConfigGenerics import ConfigAPIVies
 import re
 
@@ -21,12 +20,15 @@ class CommonInterfacesViews(ConfigAPIVies):
         data: this.temp
         }
         """
-
+        # 配置数据源
+        source = request.data.get('source')
+        if source is not None:
+            self.source = source
         # print(request.data)
         # {'ip': '192.168.100.200', 'vlan': {'vlanId': '11', 'vlanName': '111', 'vlanDesc': '111'}}
         ip = request.data.get('ip')
         # 1. 根据IP查询相关信息
-        user, template_xml_string, params = getInfo(ip, functionName=self.functionName)
+        user, template_xml_string, params = self.getInfo(ip, functionName=self.functionName)
         # 2. 获取create-template元素的内容
         domTree = parseString(template_xml_string)
         # template_create_xml = domTree.getElementsByTagName(self.create_TagName)[0].childNodes[1].toxml()
@@ -72,10 +74,10 @@ class CommonInterfacesViews(ConfigAPIVies):
         # 3.2 替换参数,生程string类型的xml报文数据
         config_temp = Template(template_create_dom.toxml())
         config_data = config_temp.substitute(mapping)
-        print(config_data)
+        # print(config_data)
         try:
             # 4. 下发配置
-            reply = edit_config(ip=ip, user=user, data=config_data)
+            reply = self.edit_config(ip=ip, user=user, config=config_data)
         except Exception as e:
             print(e)
             # 配置vlanif接口，如果vlan配置下的vlanif接口被删除，引发以下错误
@@ -106,10 +108,10 @@ class CommonInterfacesViews(ConfigAPIVies):
                     if vlanId_re != None:
                         vlanId = vlanId_re.group(1)
                         config_data = config_temp.substitute(vlanId=vlanId)
-                    print(config_data)
+                    # print(config_data)
                     try:
                         # 4. 下发配置
-                        reply = edit_config(ip=ip, user=user, data=config_data)
+                        reply = self.edit_config(ip=ip, user=user, config=config_data)
                         # 重新添加接口
                         self.create(request, *args, **kwargs)
                     except:
@@ -129,11 +131,15 @@ class CommonInterfacesViews(ConfigAPIVies):
         """
         删除配置
         """
+        # 配置数据源
+        source = request.data.get('source')
+        if source is not None:
+            self.source = source
         # kwargs.pk = vlanId
         # request.data: {'ip': '192.168.100.200', 'vlan': {'vlanId': '11', 'vlanName': '111', 'vlanDesc': '111'}}
         ip = request.data.get('ip')
         # 1. 根据IP查询相关信息
-        user, template_xml_string, params = getInfo(ip, functionName=self.functionName)
+        user, template_xml_string, params = self.getInfo(ip, functionName=self.functionName)
         # 2. 获取create-template元素的内容
         domTree = parseString(template_xml_string)
         """ 
@@ -162,10 +168,10 @@ class CommonInterfacesViews(ConfigAPIVies):
             mapping[item.name] = vlan_data.get(item.name)
         # 3.2 替换参数,生程string类型的xml报文数据
         config_data = config_temp.substitute(mapping)
-        print(config_data)
+        # print(config_data)
         try:
             # 4. 下发配置
-            reply = edit_config(ip=ip, user=user, data=config_data)
+            reply = self.edit_config(ip=ip, user=user, config=config_data)
             # BUG:如果处理配置错误的问题？ //The name has been used by another VLAN.
             # print(reply)
         except Exception as e:

@@ -1,12 +1,27 @@
 from rest_framework import serializers
 from .models import Templates, Params, TempType, Function
-from CMS.apps.equipment.models import UnitType, Vendor
+from CMS.apps.equipment.models import UnitType, Vendor, NeType
+
+
+class NeTypeSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = NeType
+        fields = '__all__'
+
+    def __str__(self):
+        return self
 
 
 class BaseSerializers(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     name = serializers.CharField(allow_null=True)
     remark = serializers.CharField(allow_null=True)
+
+
+class VendorSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Vendor
+        fields = '__all__'
 
 
 class TempTypesSeralizers(BaseSerializers):
@@ -22,14 +37,23 @@ class TempTypesSeralizers(BaseSerializers):
 
 
 class UnitTypeSerializers(BaseSerializers):
-    vendor = serializers.SlugRelatedField(slug_field='name', read_only=True)
+    # vendor = serializers.SlugRelatedField(slug_field='name', read_only=True)
+    vendor = serializers.PrimaryKeyRelatedField(queryset=Vendor.objects.all())
+
+    def to_representation(self, instance):
+        vendor = instance.vendor
+        ret = super(UnitTypeSerializers, self).to_representation(instance)
+        ret['vendor'] = VendorSerializers(vendor).data.get('name', None)
+        return ret
 
     def create(self, validated_data):
+        print(validated_data)
         return UnitType.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name', instance.name)
         instance.remark = validated_data.get('remark', instance.remark)
+        instance.vendor = validated_data.get('vendor', instance.vendor)
         instance.save()  # 注意要保存数据到数据库
         return instance
 
