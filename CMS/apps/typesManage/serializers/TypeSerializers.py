@@ -70,14 +70,18 @@ class FunctionSerializers(BaseSerializers):
         return instance
 
 
-class ParamsSerializers(BaseSerializers):
-    constraint = serializers.CharField(allow_null=True, allow_blank=True)
+class ParamsSerializers(serializers.ModelSerializer):
+    # constraint = serializers.CharField(allow_null=True, allow_blank=True)
+    class Meta:
+        model = Params
+        fields = '__all__'
 
     def create(self, validated_data):
         Params.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name', instance.name)
+        instance.label = validated_data.get('label', instance.label)
         instance.remark = validated_data.get('remark', instance.remark)
         instance.save()  # 注意要保存数据到数据库
         return instance

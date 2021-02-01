@@ -209,7 +209,7 @@ class ConfigAPIVies(GenericAPIView, ConfigTools, GetUserInfo):
 
     def params(self, request, *args, **kwargs):
         """
-        并返回配置参数列表
+        返回配置参数列表
         """
         ip = request.query_params.get('ip')
         try:

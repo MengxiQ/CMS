@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
-
+import json
 from CMS.apps.configManage.models import Templates, Function, UnitType, TempType, Params
 from CMS.apps.typesManage.serializers.TypeSerializers import TemplatesSerializers
 
@@ -152,6 +152,7 @@ class TemplatesViews(ListCreateAPIView, RetrieveUpdateDestroyAPIView):
                     item.delete()
                 # 5.2 更新参数
                 for item in request.data.get('params'):
+                    item['template'] = template
                     param = Params.objects.create(**item)
                     param.template = template
                     param.save()

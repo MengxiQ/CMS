@@ -43,16 +43,14 @@ class Templates(models.Model):
         db_table = 'templates'
 
 
+# 模板参数
 class Params(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True)
+    label = models.CharField(max_length=100, blank=True, null=True)
     remark = models.CharField(max_length=255, blank=True, null=True)
-    constraint = models.CharField(max_length=255, blank=True, null=True) # 参数约束在这里！！
+    constraint = models.CharField(max_length=255, blank=True, null=True)  # 参数约束在这里！！
     template = models.ForeignKey(Templates, blank=True, null=True, on_delete=models.CASCADE)
 
     class Meta:
         managed = True
         db_table = 'params'
-
-
-
-
