@@ -9,7 +9,7 @@ class ConnectView(GenericAPIView, GetUserInfo, Connector):
 
     def get(self, request, *args, **kwargs):
         ip = request.query_params.get('ip')
-        user, template_xml_string, params = self.getInfo(ip=ip)
+        user, template_xml_string, params, position = self.getInfo(ip=ip)
         m = self.connect(ip=ip, user=user)
         if m._session.connected:
             return Response({'msg': 'ok'}, status=status.HTTP_200_OK)

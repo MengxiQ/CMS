@@ -1,3 +1,5 @@
+
+
 from CMS.apps.typesManage.serializers.TypeSerializers import TemplatesSerializers
 from CMS.apps.equipment.models import Networkequipment, UnitType
 
@@ -28,14 +30,16 @@ class GetUserInfo:
                 serializers = TemplatesSerializers(template)
                 # 3. 获取到配置模板
                 template_xml_string = serializers.data.get('templateData')
+                position = serializers.data.get('position')
                 # 5，获取配置参数列表
                 params = template.params_set.all()
             else:
                 # 因为只想获取用户信息返回None
                 template_xml_string = None
                 params = None
+                position = None
         except Exception as e:
             print(e)
             raise Exception({'msg': '获取模板失败！'})
 
-        return user, template_xml_string, params
+        return user, template_xml_string, params, position

@@ -83,6 +83,7 @@ class ParamsSerializers(serializers.ModelSerializer):
         instance.name = validated_data.get('name', instance.name)
         instance.label = validated_data.get('label', instance.label)
         instance.remark = validated_data.get('remark', instance.remark)
+        instance.remark = validated_data.get('role', instance.role)
         instance.save()  # 注意要保存数据到数据库
         return instance
 
@@ -94,6 +95,7 @@ class TemplatesSerializers(BaseSerializers):
     templateData = serializers.CharField(allow_null=True)  # 模板文件比较大，所以应该异步加载
     updateDate = serializers.DateTimeField(allow_null=True)
     function = FunctionSerializers(allow_null=True, read_only=True)
+    position = serializers.CharField(allow_null=True)
     params_set = ParamsSerializers(allow_null=True, many=True, read_only=True)
 
     def create(self, validated_data):

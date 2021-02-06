@@ -39,7 +39,9 @@ class ConfigAPIVies(GenericAPIView, ConfigTools, GetUserInfo):
         ip = request.query_params.get('ip')
         # 1. 根据ip查到设备信息：netconf user信息, 模板信息
         try:
-            user, template_xml_string, params = self.getInfo(ip=ip, functionName=self.functionName)
+            user, template_xml_string, params, position = self.getInfo(ip=ip, functionName=self.functionName)
+            if position is None:
+                return Response({'msg': '模板没有配置position.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except Exception as e:
             return Response({'msg': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         # 2. 整个模板XML生成domTree
@@ -93,7 +95,7 @@ class ConfigAPIVies(GenericAPIView, ConfigTools, GetUserInfo):
             # print(config_data)
         try:
             if getConfig:
-                res = self.get_config(ip, user, config_data)
+                res = self.get_config(ip, user, config_data, position)
             else:
                 res = self.get_info(ip, user, config_data)
         except Exception as e:
@@ -120,7 +122,7 @@ class ConfigAPIVies(GenericAPIView, ConfigTools, GetUserInfo):
         # print(request.data)
         ip = request.data.get('ip')
         # 1. 根据IP查询相关信息
-        user, template_xml_string, params = self.getInfo(ip, functionName=self.functionName)
+        user, template_xml_string, params, position = self.getInfo(ip, functionName=self.functionName)
         # 2. 获取create-template元素的内容
         domTree = parseString(template_xml_string)
         # 3. 构造报文
@@ -167,7 +169,7 @@ class ConfigAPIVies(GenericAPIView, ConfigTools, GetUserInfo):
             self.source = source
         ip = request.data.get('ip')
         # 1. 根据IP查询相关信息
-        user, template_xml_string, params = self.getInfo(ip, functionName=self.functionName)
+        user, template_xml_string, params, position = self.getInfo(ip, functionName=self.functionName)
         # 2. 获取create-template元素的内容
         domTree = parseString(template_xml_string)
 

@@ -37,7 +37,7 @@ class Templates(models.Model):
     support = models.ManyToManyField(to=UnitType)
     templateData = models.CharField(max_length=5000, blank=True, null=True)
     updateDate = models.DateTimeField(blank=True, null=True)
-
+    position = models.CharField(max_length=255, blank=True, null=True)  # 数据父标签
     class Meta:
         managed = True
         db_table = 'templates'
@@ -48,7 +48,8 @@ class Params(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True)
     label = models.CharField(max_length=100, blank=True, null=True)
     remark = models.CharField(max_length=255, blank=True, null=True)
-    constraint = models.CharField(max_length=255, blank=True, null=True)  # 参数约束在这里！！
+    constraint = models.CharField(max_length=255, blank=True, null=True)  # 参数约束
+    role = models.CharField(max_length=255, blank=True, null=True)  # 参数角色
     template = models.ForeignKey(Templates, blank=True, null=True, on_delete=models.CASCADE)
 
     class Meta:

@@ -125,6 +125,7 @@ class TemplatesViews(ListCreateAPIView, RetrieveUpdateDestroyAPIView):
                     validated_data = templateSerializer.validated_data
                     template.name = validated_data.get('name')
                     template.remark = validated_data.get('remark')
+                    template.position = validated_data.get('position')
                     template.updateDate = validated_data.get('updateDate')
                     template.templateData = validated_data.get('templateData')
                 else:
