@@ -49,7 +49,9 @@ class Params(models.Model):
     label = models.CharField(max_length=100, blank=True, null=True)
     remark = models.CharField(max_length=255, blank=True, null=True)
     constraint = models.CharField(max_length=255, blank=True, null=True)  # 参数约束
-    role = models.CharField(max_length=255, blank=True, null=True)  # 参数角色
+    role = models.CharField(max_length=255, blank=True, null=True)  # 参数角色，key?leaf;
+    # 类型1leaf：position:vlan>vlans>vlan>一条数据
+    # 类型2key：直接是position：systemInfo仅有一条数据
     template = models.ForeignKey(Templates, blank=True, null=True, on_delete=models.CASCADE)
 
     class Meta:

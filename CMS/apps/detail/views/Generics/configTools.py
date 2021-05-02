@@ -35,12 +35,28 @@ class ConfigTools(Connector):
         m = self.connect(ip, user)
         reply_obj = m.get_config(source=self.source, filter=filter)  # 返回GetReply对象（.data_ele转ele对象，data_xml转xml文本）
         # result = reply_obj.data_ele.find('.//{http://www.huawei.com/netconf/vrp}vlans')  # 用find函数，指定命名空间
-        result = reply_obj.data_ele.find('.//{' + 'http://www.huawei.com/netconf/vrp' + '}' + positon)  # 用find函数，指定命名空间
-        result_string = etree.tostring(result, encoding="utf-8").decode()  # ele转换成string
-        result_json = xmltodict.parse(result_string)[positon]  # string 转出字典 # 返回的vlans里面的内容，不包含vlans本身
-        for item in result_json:  # 获取到字节点的数组
-            if item[0] != '@':
-                result_json = result_json[item]
+        result = reply_obj.data_ele.find('.//{' + 'http://www.huawei.com/netconf/vrp' + '}' + positon)  # 用find函数，指定命名空间,选找数据位置标签
+        if result is not None:
+            result_string = etree.tostring(result, encoding="utf-8").decode()  # ele转换成string
+            # 类型1：position:vlan>vlans>vlan>一条数据
+            # 类型2：直接是position：systemInfo仅有一条数据
+
+            # 类型2.直接返回position标签的数据里面的内容
+            result_json = xmltodict.parse(result_string)[positon]  # string 转出字典 # 返回的positon里面的内容，不包含vlans本身
+
+            # 类型1
+            # data: {
+            #     @xmlns: "http://www.huawei.com/netconf/vrp"
+            #     vlan: [{...}]
+            #     }
+            print('返回的字典长度（数量）：', len(result_json))
+            if len(result_json) < 3:  # 如有第三个子元素则认为是类型2，不执行下面代码-（返回的字典长度（数量）小于3）
+                for item in result_json:
+                    if item[0] != '@':  # 后端都会返回一个节点： @xmlns: "http://www.huawei.com/netconf/vrp"，所以要第二个。
+                        result_json = result_json[item]
+
+        else:
+            return None
         return result_json
 
     def edit_config(self, ip, user, config):

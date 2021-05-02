@@ -41,7 +41,7 @@ class ConfigAPIVies(GenericAPIView, ConfigTools, GetUserInfo):
         try:
             user, template_xml_string, params, position = self.getInfo(ip=ip, functionName=self.functionName)
             if position is None:
-                return Response({'msg': '模板没有配置position.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                return Response({'msg': '模板没有配置数据位置.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except Exception as e:
             return Response({'msg': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         # 2. 整个模板XML生成domTree

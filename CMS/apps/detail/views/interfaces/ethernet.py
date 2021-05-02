@@ -11,41 +11,41 @@ from CMS.apps.tools.vlansTools import Vlans2List, List2Vlans, List2Vlanserge
 class EthernetInterfacesViews(ConfigAPIVies):
     functionName = '配置以太接口'
 
-    def list(self, request, *args, **kwargs):
-        """
-        获取返回配置列表，并返回配置参数列表
-        """
-        # 配置数据源
-        source = request.data.get('source')
-        if source is not None:
-            self.source = source
-        ip = request.query_params.get('ip')
-        # 1. 根据ip查到设备信息：netconf user信息, 模板信息
-        user, template_xml_string, params = self.getInfo(ip=ip, functionName=self.functionName)
-        # 2. 获取get-template元素的内容
-        try:
-            domTree = parseString(template_xml_string)
-            template_get_xml = domTree.getElementsByTagName(self.get_TagName)[0].childNodes[1].toxml()
-        except Exception as e:
-            print(e)
-            return Response({'msg': 'XML模板语法错误。'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-        paramsList = []
-        for item in params:
-            paramsSerializers = ParamsSerializers(item)
-            paramsList.append(paramsSerializers.data)
-        try:
-            res = self.get_config(ip, user, template_get_xml)
-            interfances = res['ethernet']['ethernetIfs']['ethernetIf']
-            for interfance in interfances:
-                if interfance['l2Enable'] == 'enable':
-                    trunkVlans = interfance['l2Attribute']['trunkVlans']
-                    if trunkVlans is not None:
-                        interfance['l2Attribute']['trunkVlans'] = (Vlans2List(interfance['l2Attribute']['trunkVlans']))
-        except Exception as e:
-            print(e)
-            return Response({'msg': '配置模板错误：' + str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        return Response({'data': res, 'params': paramsList}, status=status.HTTP_200_OK)
+    # def list(self, request, *args, **kwargs):
+    #     """
+    #     获取返回配置列表，并返回配置参数列表
+    #     """
+    #     # 配置数据源
+    #     source = request.data.get('source')
+    #     if source is not None:
+    #         self.source = source
+    #     ip = request.query_params.get('ip')
+    #     # 1. 根据ip查到设备信息：netconf user信息, 模板信息
+    #     user, template_xml_string, params, position = self.getInfo(ip=ip, functionName=self.functionName)
+    #     # 2. 获取get-template元素的内容
+    #     try:
+    #         domTree = parseString(template_xml_string)
+    #         template_get_xml = domTree.getElementsByTagName(self.get_TagName)[0].childNodes[1].toxml()
+    #     except Exception as e:
+    #         print(e)
+    #         return Response({'msg': 'XML模板语法错误。'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    #
+    #     paramsList = []
+    #     for item in params:
+    #         paramsSerializers = ParamsSerializers(item)
+    #         paramsList.append(paramsSerializers.data)
+    #     try:
+    #         res = self.get_config(ip, user, template_get_xml)
+    #         interfances = res['ethernet']['ethernetIfs']['ethernetIf']
+    #         for interfance in interfances:
+    #             if interfance['l2Enable'] == 'enable':
+    #                 trunkVlans = interfance['l2Attribute']['trunkVlans']
+    #                 if trunkVlans is not None:
+    #                     interfance['l2Attribute']['trunkVlans'] = (Vlans2List(interfance['l2Attribute']['trunkVlans']))
+    #     except Exception as e:
+    #         print(e)
+    #         return Response({'msg': '配置模板错误：' + str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    #     return Response({'data': res, 'params': paramsList}, status=status.HTTP_200_OK)
 
     def create(self, request, *args, **kwargs):
         """

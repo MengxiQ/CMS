@@ -1,0 +1,9 @@
+django
+django-cors-headers
+pymysql
+djangorestframework
+django-filter
+djangorestframework-jwt
+ncclient
+ping3
+xmltodict

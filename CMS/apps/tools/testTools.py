@@ -8,7 +8,7 @@ from CMS.apps.equipment.models import Networkequipment, NestatusType, Nestatus
 
 
 def pingTimer(inc):
-    print(datetime.now().strftime("%Y-%m-%d %H:%M:%S"), '刷新状态')
+    # print(datetime.now().strftime("%Y-%m-%d %H:%M:%S"), '刷新状态')
     # 1 查询所有的设备
     equipments = Networkequipment.objects.all()
     # 2 循环尝试ping设备
